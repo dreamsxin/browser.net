@@ -22,6 +22,8 @@ namespace Eotu.Client
         public MainWindow()
         {
             InitializeComponent();
+            // 显示
+            new SplashWindow().ShowDialog();
         }
     }
 }
