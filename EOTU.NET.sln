@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Eotu.Core", "Eotu.Core\Eotu.Core.vcxproj", "{EFB949DC-75B2-4668-AA06-7426257FCD17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eotu.Client", "Eotu.Client\Eotu.Client.csproj", "{8769A260-A45C-4D4C-B0D1-D587F5B75B38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EFB949DC-75B2-4668-AA06-7426257FCD17} = {EFB949DC-75B2-4668-AA06-7426257FCD17}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

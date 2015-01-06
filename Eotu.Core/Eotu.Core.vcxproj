@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Avatar.h" />
     <ClInclude Include="Eotu.Core.h" />
     <ClInclude Include="LoginController.h" />
     <ClInclude Include="resource.h" />
@@ -83,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="Eotu.Core.cpp" />
     <ClCompile Include="LoginController.cpp" />
     <ClCompile Include="Stdafx.cpp">

@@ -2,10 +2,12 @@
 
 namespace EotuCore {
 
-	public class LoginController
+	public ref class LoginController
 	{
 	public:
 		LoginController(void);
+
+		System::Boolean login(System::String^ username, System::String^ password);
 	};
 
 }

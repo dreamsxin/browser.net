@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Runtime.InteropServices;
 
 namespace Eotu.Client
 {
@@ -21,6 +22,20 @@ namespace Eotu.Client
         public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        private void button_login_Click(object sender, RoutedEventArgs e)
+        {
+            EotuCore.LoginController loginController = new EotuCore.LoginController();
+            if (loginController.login(this.textBox_username.Text, this.passwordBox.Password)) { 
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("账户或密码错误", "登录失败", MessageBoxButton.OK);
+            }
         }
     }
 }
