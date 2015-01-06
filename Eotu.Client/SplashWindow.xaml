@@ -11,10 +11,13 @@
                 <GradientStop Color="White" Offset="0.72" />
             </LinearGradientBrush>
         </Grid.Background>
-        <Rectangle Name="myRectangle" Width="100" Height="100">
+        <Rectangle Name="myRectangle" Width="100" Height="100" RenderTransformOrigin="0.5,0.5">
             <Rectangle.Fill>
                 <SolidColorBrush x:Name="rectangleBrush" Color="Blue"></SolidColorBrush>
             </Rectangle.Fill>
+            <Rectangle.RenderTransform>
+                <RotateTransform x:Name="rectangleRotate" Angle="0.0" />
+            </Rectangle.RenderTransform>
             <Rectangle.Triggers>
                 <EventTrigger RoutedEvent="Rectangle.Loaded">
                     <BeginStoryboard>
@@ -24,6 +27,11 @@
                                 Storyboard.TargetProperty="Color"
                                 From="Blue" To="Red" Duration="0:0:10"
                                 AutoReverse="True" RepeatBehavior="Forever" />
+                            <DoubleAnimation
+                                Storyboard.TargetName="rectangleRotate"
+                                Storyboard.TargetProperty="Angle"
+                                From="0.0" To="360.0" Duration="0:0:10"
+                                RepeatBehavior="Forever" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
