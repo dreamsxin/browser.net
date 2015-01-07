@@ -8,4 +8,13 @@
 #include<iostream>
 
 // TODO: 在此处引用程序需要的其他头文件
+#include "../RakNet/Source/TCPInterface.h"
 #include "../RakNet/Source/HTTPConnection.h"
+#include "../RakNet/Source/RakSleep.h"
+#include "../RakNet/Source/RakString.h"
+#include "../RakNet/Source/Gets.h"
+#include "../RakNet/Source/Getche.h"
+
+#include "json/json.h"
+
+using namespace RakNet;

@@ -7,7 +7,11 @@ namespace EotuCore {
 	public:
 		LoginController(void);
 
-		System::Boolean login(System::String^ username, System::String^ password);
+		inline System::Boolean login(System::String^ username, System::String^ password) {
+			return login(username, password, 3000);
+		}
+
+		System::Boolean login(System::String^ username, System::String^ password, int timeout);
 	};
 
 }
