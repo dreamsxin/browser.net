@@ -33,10 +33,9 @@ namespace EotuCore {
 			RakNet::OP_DELETE(tcp, _FILE_AND_LINE_);
 		}
 
-		std::string Post(const string& url, const std::string& data, const int timeout) {
-
-			Logger::Debug("send:");
-			Logger::Debug(data);
+		std::string Post(const string& url, const string& data, const int timeout)
+		{
+			Logger::Debug("send:" + data);
 
 			int runTime = 0;
 
@@ -55,8 +54,7 @@ namespace EotuCore {
 					RakString fileContents = httpConnection->Read();
 					string result = strstr(fileContents.C_String(), "\r\n\r\n");
 					getche();
-					Logger::Debug("recv:");
-					Logger::Debug(result);
+					Logger::Debug("recv:" + result);
 					return result;
 				}
 
