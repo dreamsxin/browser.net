@@ -8,10 +8,4 @@
 #include<iostream>
 
 // TODO: 在此处引用程序需要的其他头文件
-#include "RakNet\HTTPConnection.h"
-
-#ifdef _DEBUG
-#pragma comment(lib, "RakNet_DLL_Debug_Win32.lib")
-#else
-#pragma comment(lib, "RakNet_DLL_Release_Win32.lib")
-#endif
+#include "../RakNet/Source/HTTPConnection.h"

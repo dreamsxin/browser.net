@@ -76,7 +76,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Avatar.h" />
     <ClInclude Include="Eotu.Core.h" />
     <ClInclude Include="LoginController.h" />
     <ClInclude Include="resource.h" />
@@ -84,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="Eotu.Core.cpp" />
     <ClCompile Include="LoginController.cpp" />
     <ClCompile Include="Stdafx.cpp">
@@ -98,6 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RakNet\RakNet.vcxproj">
+      <Project>{bc75cd23-cb75-4233-a305-b7328825a9a5}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
