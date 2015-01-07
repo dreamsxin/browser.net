@@ -1,6 +1,7 @@
 #pragma once
 
 using namespace System;
+using namespace System::Text;
 
 namespace EotuCore {
 

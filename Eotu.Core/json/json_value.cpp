@@ -1209,6 +1209,11 @@ size_t Value::getOffsetStart() const { return start_; }
 
 size_t Value::getOffsetLimit() const { return limit_; }
 
+std::string Value::toString() const {
+	FastWriter writer;
+	return writer.write(*this);
+}
+
 std::string Value::toStyledString() const {
   StyledWriter writer;
   return writer.write(*this);

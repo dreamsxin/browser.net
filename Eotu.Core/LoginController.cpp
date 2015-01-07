@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "Logger.h"
 #include "LoginController.h"
+#include "HttpClient.h"
 
 using namespace System;
 using namespace System::IO;
@@ -15,61 +16,49 @@ namespace EotuCore {
 
 	System::Boolean LoginController::login(System::String^ username, System::String^ password, int timeout)
 	{
-		Logger::Debug("登录处理");
+		_status = FALSE;
+		_message = System::String::Empty;
+
 		if (System::String::IsNullOrEmpty(username) || System::String::IsNullOrEmpty(password)) {
 			return FALSE;
 		} else {
 			std::string s_username = (const char*)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(username)).ToPointer();
 			std::string s_password = (const char*)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(password)).ToPointer();
 			
-			Json::Value json;
+			Json::Value data;
 
-			json["username"] = s_username;
-			json["password"] = s_password;
+			data["username"] = s_username;
+			data["password"] = s_password;
 
-			Logger::Debug(json.toStyledString());
+			HttpClient httpClient("passport.eotu.com", 81);
+			std::string ret = httpClient.Post("/api/local/account/auth", data.toString(), timeout);
 
-			Json::FastWriter writer;  
-			std::string data = writer.write(json); 
+			Json::Reader reader;
+			Json::Value result;
 
-			std::cout << "开始请求服务器" << std::endl;
-
-			TCPInterface *tcp;
-			HTTPConnection *httpConnection;
-
-			tcp = RakNet::OP_NEW<TCPInterface>(__FILE__, __LINE__);
-			httpConnection = RakNet::OP_NEW<HTTPConnection>(__FILE__, __LINE__);
-
-			tcp->Start(0, 2);
-
-			httpConnection->Init(tcp, "passport.eotu.com", 81);
-			httpConnection->Post("/api/local/account/auth", data.c_str());
-
-			while (timeout) {
-				Packet *packet = tcp->Receive();
-				if(packet) {
-					httpConnection->ProcessTCPPacket(packet);
-					tcp->DeallocatePacket(packet);
+			if (reader.parse(ret, result)) {
+				if (result.isMember("status")) {
+					std::string status = result["status"].asString();
+					_status = (status.compare("ok") == 0);
 				}
-
-				httpConnection->Update();
-
-				if (httpConnection->IsBusy()==false) {
-					RakString fileContents = httpConnection->Read();
-					std::cout << "接收到数据：" << fileContents << std::endl;
-
-					getche();
-					return TRUE;
+				if (result.isMember("message")) {
+					std::string message = result["message"].asString();
+					_message = gcnew String(message.c_str());
 				}
-
-				RakSleep(30);
-				timeout = timeout - 30;
 			}
-
-			RakNet::OP_DELETE(httpConnection,_FILE_AND_LINE_);
-			RakNet::OP_DELETE(tcp,_FILE_AND_LINE_);
-			return FALSE;
 		}
+
+		return _status;
+	}
+
+	System::Boolean LoginController::getStatus()
+	{
+		return _status;
+	}
+
+	System::String^ LoginController::getMessage()
+	{
+		return _message;
 	}
 
 }
