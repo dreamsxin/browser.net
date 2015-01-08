@@ -76,7 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ContactController.h" />
     <ClInclude Include="Eotu.Core.h" />
+    <ClInclude Include="GroupModel.h" />
     <ClInclude Include="HttpClient.h" />
     <ClInclude Include="json\assertions.h" />
     <ClInclude Include="json\autolink.h" />
@@ -97,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="ContactController.cpp" />
     <ClCompile Include="Eotu.Core.cpp" />
     <ClCompile Include="json\json_reader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>

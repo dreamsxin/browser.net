@@ -2,24 +2,26 @@
 
 #include "json/json.h"
 
+using namespace System;
+
 namespace EotuCore {
 
 	public ref class LoginController
 	{
 	private:
-		System::Boolean _status;
-		System::String^ _message;
+		Boolean _status;
+		String^ _message;
 	public:
 		LoginController(void);
 
-		inline System::Boolean login(System::String^ username, System::String^ password) {
+		inline Boolean login(String^ username, String^ password) {
 			return login(username, password, 3000);
 		}
 
-		System::Boolean login(System::String^ username, System::String^ password, int timeout);
+		Boolean login(String^ username, String^ password, int timeout);
 
-		System::Boolean getStatus();
-		System::String^ getMessage();
+		Boolean getStatus();
+		String^ getMessage();
 	};
 
 }

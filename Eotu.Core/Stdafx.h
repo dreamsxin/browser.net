@@ -16,5 +16,6 @@
 #include "../RakNet/Source/Getche.h"
 
 #include "json/json.h"
+#include "Logger.h"
 
 using namespace RakNet;

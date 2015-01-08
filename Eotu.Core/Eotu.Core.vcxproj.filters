@@ -75,6 +75,12 @@
     <ClInclude Include="HttpClient.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ContactController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupModel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Eotu.Core.cpp">
@@ -99,6 +105,9 @@
       <Filter>源文件\json</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactController.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

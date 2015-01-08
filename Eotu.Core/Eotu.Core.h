@@ -6,8 +6,14 @@ using namespace System;
 
 namespace EotuCore {
 
-	public ref class Class1
+	public ref class Util
 	{
-		// TODO: 在此处添加此类的方法。
+	public:
+		static void MarshalString(String ^ s, std::string& os) {
+			using namespace Runtime::InteropServices;
+			const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+			os = chars;
+			Marshal::FreeHGlobal(IntPtr((void*)chars));
+		}
 	};
 }

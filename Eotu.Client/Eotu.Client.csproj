@@ -81,7 +81,6 @@
     </Compile>
     <Compile Include="Content\ContactsViewModel.cs" />
     <Compile Include="Loader\ContactsLoader.cs" />
-    <Compile Include="Models\GroupsModel.cs" />
     <Compile Include="Content\SettingsAppearance.xaml.cs">
       <DependentUpon>SettingsAppearance.xaml</DependentUpon>
     </Compile>

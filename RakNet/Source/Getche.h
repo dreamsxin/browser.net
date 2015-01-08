@@ -10,7 +10,9 @@
 
 #if   defined(_WIN32)
 #include <conio.h> /* getche() */
-
+#ifdef _MSC_VER
+#define getche() _getche()
+#endif
 #else
 #include <termios.h>
 #include <stdio.h>

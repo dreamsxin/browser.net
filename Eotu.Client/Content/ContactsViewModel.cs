@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FirstFloor.ModernUI.Presentation;
+using EotuCore;
 
 namespace Eotu.Client.Content
 {
     class ContactsViewModel
         : NotifyPropertyChanged
     {
-        private List<GroupsModel> groups = new List<GroupsModel>();
+        private List<GroupModel> groups = new List<GroupModel>();
 
-        public List<GroupsModel> Groups
+        public List<GroupModel> Groups
         {
             get
             {
@@ -44,20 +45,20 @@ namespace Eotu.Client.Content
 
         public ContactsViewModel()
         {
-            GroupsModel group1 = new GroupsModel();
-            group1.GroupId = 1;
-            group1.GroupName = "好友";
-            Groups.Add(group1);
+            loadGroup();
+        }
 
-            GroupsModel group2 = new GroupsModel();
-            group2.GroupId = 2;
-            group2.GroupName = "家人";
-            groups.Add(group2);
+        private void loadGroup()
+        {
+            ContactController contactController = new ContactController();
 
-            foreach (GroupsModel group in groups)
+            Groups = contactController.getGroups(9);
+
+            foreach (GroupModel group in Groups)
             {
                 this.grouplinks.Add(new Link { DisplayName = group.GroupName, Source = new Uri(group.GroupId.ToString(), UriKind.Relative) });
             }
+
         }
     }
 }
