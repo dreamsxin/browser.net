@@ -5,7 +5,7 @@ using namespace System::Text;
 
 namespace EotuCore {
 
-	ref class Logger
+	public ref class Logger
 	{
 	public:
 		static void Debug(String^ message);

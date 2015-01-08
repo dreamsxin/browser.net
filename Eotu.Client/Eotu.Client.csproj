@@ -76,16 +76,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Content\ContactsList.xaml.cs">
+      <DependentUpon>ContactsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\ContactsViewModel.cs" />
+    <Compile Include="Loader\ContactsLoader.cs" />
+    <Compile Include="Models\GroupsModel.cs" />
     <Compile Include="Content\SettingsAppearance.xaml.cs">
       <DependentUpon>SettingsAppearance.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\SettingsAppearanceViewModel.cs" />
+    <Compile Include="Pages\Contacts.xaml.cs">
+      <DependentUpon>Contacts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Content\ContactsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Content\SettingsAppearance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -109,6 +122,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Contacts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,6 +186,14 @@
       <Project>{EFB949DC-75B2-4668-AA06-7426257FCD17}</Project>
       <Name>Eotu.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\alien.png" />
+    <Resource Include="Assets\devil.png" />
+    <Resource Include="Assets\frankenstein.png" />
+    <Resource Include="Assets\mike.png" />
+    <Resource Include="Assets\slimer.png" />
+    <Resource Include="Assets\squash.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
