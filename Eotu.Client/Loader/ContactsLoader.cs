@@ -18,7 +18,6 @@ namespace Eotu.Client.Loader
         /// <returns>The loaded content.</returns>
         protected override object LoadContent(Uri uri)
         {
-            Logger.Debug(uri.ToString());
             return new ContactsList(uri);
         }
     }

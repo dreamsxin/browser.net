@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContactController.h" />
+    <ClInclude Include="ContactModel.h" />
     <ClInclude Include="Eotu.Core.h" />
     <ClInclude Include="GroupModel.h" />
     <ClInclude Include="HttpClient.h" />

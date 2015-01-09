@@ -81,6 +81,9 @@
     <ClInclude Include="GroupModel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ContactModel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Eotu.Core.cpp">

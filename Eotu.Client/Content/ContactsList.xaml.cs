@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EotuCore;
 
 namespace Eotu.Client.Content
 {
@@ -22,6 +23,15 @@ namespace Eotu.Client.Content
         public ContactsList(Uri uri)
         {
             InitializeComponent();
+
+            Logger.Debug(uri.ToString());
+
+            // 绑定数据
+            App app = (App)Application.Current;
+
+            ContactsViewModel model = app.getContactsViewModel();
+            model.loadContacts();
+            this.DataContext = model;
         }
     }
 }

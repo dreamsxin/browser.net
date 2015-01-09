@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 
+#include "Eotu.Core.h"
+
 using namespace std;
 
 namespace EotuCore {
@@ -52,9 +54,11 @@ namespace EotuCore {
 
 				if (httpConnection->IsBusy()==false) {
 					RakString fileContents = httpConnection->Read();
-					string result = strstr(fileContents.C_String(), "\r\n\r\n");
-					getche();
+					string utf8str = strstr(fileContents.C_String(), "\r\n\r\n");
+					string result;
+					Util::MarshalString(Util::DecodeFromUtf8(utf8str), result);
 					Logger::Debug("recv:" + result);
+					getche();
 					return result;
 				}
 
@@ -71,7 +75,9 @@ namespace EotuCore {
 
 			int runTime = 0;
 
-			httpConnection->Post(url.c_str(), data.c_str());
+			std::string utf8str = Util::EncodeToUtf8(data);
+
+			httpConnection->Post(url.c_str(), utf8str.c_str());
 
 			while (runTime < timeout) {
 				Packet *packet = tcp->Receive();
@@ -84,7 +90,9 @@ namespace EotuCore {
 
 				if (httpConnection->IsBusy()==false) {
 					RakString fileContents = httpConnection->Read();
-					string result = strstr(fileContents.C_String(), "\r\n\r\n");
+					string utf8str = strstr(fileContents.C_String(), "\r\n\r\n");
+					string result;
+					Util::MarshalString(Util::DecodeFromUtf8(utf8str), result);
 					getche();
 					Logger::Debug("recv:" + result);
 					return result;

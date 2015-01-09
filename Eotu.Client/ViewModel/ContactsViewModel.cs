@@ -7,7 +7,7 @@ using EotuCore;
 
 namespace Eotu.Client.Content
 {
-    class ContactsViewModel
+    public class ContactsViewModel
         : NotifyPropertyChanged
     {
         private List<GroupModel> groups = new List<GroupModel>();
@@ -43,12 +43,45 @@ namespace Eotu.Client.Content
             }
         }
 
+        private List<ContactModel> contacts = new List<ContactModel>();
+
+        public List<ContactModel> Contacts
+        {
+            get
+            {
+                return this.contacts;
+            }
+
+            set
+            {
+                if (value != this.contacts)
+                {
+                    this.contacts = value;
+                    OnPropertyChanged("Contacts");
+                }
+            }
+        }
+
+        private ContactModel selectedContact;
+        public ContactModel SelectedContact
+        {
+            get { return this.selectedContact; }
+            set
+            {
+                if (this.selectedContact != value)
+                {
+                    this.selectedContact = value;
+                    OnPropertyChanged("SelectedContact");
+                }
+            }
+        }
+
         public ContactsViewModel()
         {
             loadGroup();
         }
 
-        private void loadGroup()
+        public void loadGroup()
         {
             ContactController contactController = new ContactController();
 
@@ -56,9 +89,16 @@ namespace Eotu.Client.Content
 
             foreach (GroupModel group in Groups)
             {
-                this.grouplinks.Add(new Link { DisplayName = group.GroupName, Source = new Uri(group.GroupId.ToString(), UriKind.Relative) });
+                this.grouplinks.Add(new Link { DisplayName = group.GroupName, Source = new Uri(group.GroupName, UriKind.Relative) });
             }
 
+        }
+
+        public void loadContacts()
+        {
+            ContactController contactController = new ContactController();
+
+            Contacts = contactController.getContacts(9, 0);
         }
     }
 }

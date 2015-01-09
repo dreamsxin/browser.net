@@ -23,8 +23,10 @@ namespace Eotu.Client.Pages
         public Contacts()
         {
             InitializeComponent();
+
             // 绑定数据
-            this.DataContext = new ContactsViewModel();
+            App app = (App)Application.Current;
+            this.DataContext = app.getContactsViewModel();
         }
     }
 }

@@ -9,25 +9,19 @@ namespace EotuCore {
 	public ref class GroupModel
 	{
 	private:
-		int id;
+		int user_id;
 		String^ name;
-
 	public:
-		GroupModel(void){
-			id = 0;
-			name = String::Empty;
-		}
-
-		property int GroupId
+		property int UserId
 		{
 			int get() {
-				return id;
+				return user_id;
 			}
 
 			void set(int value) {
-				if (value != id)
+				if (value != user_id)
 				{
-					id = value;
+					user_id = value;
 				}
 			}
 		}
@@ -44,6 +38,12 @@ namespace EotuCore {
 					name = value;
 				}
 			}
+		}
+
+	public:
+		GroupModel(void){
+			user_id = 0;
+			name = String::Empty;
 		}
 	};
 }
