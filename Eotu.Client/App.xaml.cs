@@ -36,8 +36,8 @@ namespace Eotu.Client
 				App.Current.Shutdown(); 
 			} else {
 				// base.OnStartup(e);
-				RemoveTrayIcon();
-				AddTrayIcon();
+                RemoveTrayIcon();
+                AddTrayIcon();
             }
 		}
 
@@ -52,7 +52,7 @@ namespace Eotu.Client
 				return;
 			}
 			notifyIcon = new NotifyIcon{
-                Icon = new Icon(@"notify.ico"),
+                Icon = Eotu.Client.Properties.Resources.notify,
 				Text = "优途"
 			};
 			notifyIcon.Visible = true;

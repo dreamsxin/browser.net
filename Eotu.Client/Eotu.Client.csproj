@@ -53,9 +53,11 @@
   <ItemGroup>
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>.\FirstFloor.ModernUI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Windows.Shell">
       <HintPath>.\Microsoft.Windows.Shell.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -183,12 +185,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Eotu.Core\Eotu.Core.vcxproj">
-      <Project>{EFB949DC-75B2-4668-AA06-7426257FCD17}</Project>
-      <Name>Eotu.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\alien.png" />
     <Resource Include="Assets\devil.png" />
     <Resource Include="Assets\frankenstein.png" />
@@ -196,7 +192,20 @@
     <Resource Include="Assets\slimer.png" />
     <Resource Include="Assets\squash.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\notify.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eotu.Core\Eotu.Core.vcxproj">
+      <Project>{EFB949DC-75B2-4668-AA06-7426257FCD17}</Project>
+      <Name>Eotu.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /r /y "$(SolutionDir)$(ConfigurationName)\*.dll" "$(TargetDir)*.dll"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
