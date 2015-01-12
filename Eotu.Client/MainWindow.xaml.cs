@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FirstFloor.ModernUI.Presentation;
 
 namespace Eotu.Client
 {
@@ -25,6 +26,13 @@ namespace Eotu.Client
             InitializeComponent();
             // 显示
             new SplashWindow().ShowDialog();
+            loadAppLinkGroup();
+        }
+
+        private void loadAppLinkGroup()
+        {
+            appLinkGroup.Links.Add(new Link { DisplayName = "旅游", Source = new Uri("/Pages/WebBrowser.xaml#app/travel/index/index", UriKind.Relative) });
+            appLinkGroup.Links.Add(new Link { DisplayName = "教育", Source = new Uri("/Pages/WebBrowser.xaml#app/edu/index/index", UriKind.Relative) });
         }
     }
 }

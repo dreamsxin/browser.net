@@ -11,6 +11,7 @@ using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using EotuCore;
 using Eotu.Client.Content;
+using Gecko;
 
 namespace Eotu.Client
 {
@@ -19,8 +20,19 @@ namespace Eotu.Client
     /// </summary>
     public partial class App : Application
     {
+        private static App _current;
         private NotifyIcon notifyIcon;
         private ContactsViewModel contactsViewModel;
+
+        [STAThread]
+        public static void Main()
+        {
+            Xpcom.Initialize(XULRunnerLocator.GetXULRunnerLocation());
+
+            _current = new App();
+            _current.InitializeComponent();
+            _current.Run();
+        }
 
 		/// <summary>  
 		/// 只打开一个进程  

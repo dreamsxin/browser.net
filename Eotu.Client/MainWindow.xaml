@@ -13,11 +13,13 @@
         <mui:LinkGroup DisplayName="主页" >
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="联系人" Source="/Pages/Contacts.xaml" />
-                <mui:Link DisplayName="link 2" />
-                <mui:Link DisplayName="link 3" />
+                <mui:Link DisplayName="讨论组" />
+                <mui:Link DisplayName="陌生人" />
+                <mui:Link DisplayName="黑名单" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
-        <mui:LinkGroup DisplayName="会话" >
+        <mui:LinkGroup DisplayName="服务" x:Name="appLinkGroup" />
+        <mui:LinkGroup DisplayName="会话">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="link 4" />
                 <mui:Link DisplayName="link 5" />
