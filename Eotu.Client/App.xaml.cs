@@ -20,19 +20,8 @@ namespace Eotu.Client
     /// </summary>
     public partial class App : Application
     {
-        private static App _current;
         private NotifyIcon notifyIcon;
-        private ContactsViewModel contactsViewModel;
-
-        [STAThread]
-        public static void Main()
-        {
-            Xpcom.Initialize(XULRunnerLocator.GetXULRunnerLocation());
-
-            _current = new App();
-            _current.InitializeComponent();
-            _current.Run();
-        }
+        private static ContactsViewModel contactsViewModel;
 
 		/// <summary>  
 		/// 只打开一个进程  
@@ -51,6 +40,8 @@ namespace Eotu.Client
                 RemoveTrayIcon();
                 AddTrayIcon();
             }
+            loadConfig();
+            Xpcom.Initialize(XULRunnerLocator.GetXULRunnerLocation());
 		}
 
 		protected override void OnExit(ExitEventArgs e)
@@ -97,6 +88,21 @@ namespace Eotu.Client
 				notifyIcon = null;
 			}
 		}
+
+        /// <summary>
+        /// 读取配置文件
+        /// </summary>
+        private void loadConfig()
+        {
+            EotuCore.Config.domain = ConfigurationManager.AppSettings["domain"];
+            EotuCore.Config.host = ConfigurationManager.AppSettings["host"];
+            EotuCore.Config.port = int.Parse(ConfigurationManager.AppSettings["port"]);
+            /*
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            configuration.AppSettings.Settings["domain"].Value = "";
+            configuration.Save();
+             */
+        }
 
         public ContactsViewModel getContactsViewModel()
         {

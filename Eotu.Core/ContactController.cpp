@@ -16,7 +16,9 @@ namespace EotuCore {
 	{
 		List<GroupModel^>^ groups = gcnew List<GroupModel^>();
 
-		HttpClient httpClient("passport.eotu.com", 81);
+		std::string host;
+		Util::MarshalString(Config::host, host);
+		HttpClient httpClient(host.c_str(), Config::port);
 		std::string uri = (const char*)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi("/api/local/contact/group/" + uid)).ToPointer();
 
 		std::string ret = httpClient.Get(uri, timeout);
@@ -51,7 +53,9 @@ namespace EotuCore {
 	{
 		List<ContactModel^>^ contacts = gcnew List<ContactModel^>();
 
-		HttpClient httpClient("passport.eotu.com", 81);
+		std::string host;
+		Util::MarshalString(Config::host, host);
+		HttpClient httpClient(host.c_str(), Config::port);
 		std::string uri = (const char*)(System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi("/api/local/contact/list/" + uid)).ToPointer();
 
 		std::string ret = httpClient.Get(uri, timeout);

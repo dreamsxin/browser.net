@@ -26,6 +26,8 @@ namespace Eotu.Client
             InitializeComponent();
             // 显示
             new SplashWindow().ShowDialog();
+
+            helpLink.Source = new Uri(EotuCore.Config.domain);
             loadAppLinkGroup();
         }
 

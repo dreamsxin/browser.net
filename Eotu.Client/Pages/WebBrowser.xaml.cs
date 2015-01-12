@@ -21,6 +21,7 @@ namespace Eotu.Client.Pages
     /// </summary>
     public partial class WebBrowser : UserControl, IContent
     {
+        private bool browserInitCompleted;
         private string nav_uri;
         public WebBrowser()
         {
@@ -30,6 +31,7 @@ namespace Eotu.Client.Pages
         public void OnFragmentNavigation(FirstFloor.ModernUI.Windows.Navigation.FragmentNavigationEventArgs e)
         {
             nav_uri = e.Fragment.ToString();
+            browser_open(nav_uri);
         }
 
         public void OnNavigatedFrom(FirstFloor.ModernUI.Windows.Navigation.NavigationEventArgs e)
@@ -46,12 +48,20 @@ namespace Eotu.Client.Pages
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            browser.Navigate("http://www.eotu.com:81/");
+            browser_open("http://www.eotu.com:81/");
         }
 
         private void browser_OnInitCompleted(object sender, EventArgs e)
         {
-            browser.Navigate("http://www.eotu.com:81/" + nav_uri);
+            browserInitCompleted = true;
+            browser_open(nav_uri);
+        }
+
+        private void browser_open(string uri)
+        {
+            if (browserInitCompleted) {
+                browser.Navigate("http://www.eotu.com:81/" + uri);
+            }
         }
     }
 }

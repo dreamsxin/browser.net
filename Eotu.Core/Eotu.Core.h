@@ -8,6 +8,15 @@ using namespace Runtime::InteropServices;
 
 namespace EotuCore {
 
+	public ref class Config
+	{
+	public:
+		property static String^ domain;
+		property static String^ host;
+		property static int port;
+
+	};
+
 	public ref class Util
 	{
 	public:

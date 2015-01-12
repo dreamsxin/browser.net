@@ -7,7 +7,7 @@
         ContentSource="/Pages/Contacts.xaml">
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="设置" Source="/Pages/Settings.xaml" />
-        <mui:Link DisplayName="帮助" Source="http://www.eotu.com:81" />
+        <mui:Link DisplayName="帮助" x:Name="helpLink" />
     </mui:ModernWindow.TitleLinks>
     <mui:ModernWindow.MenuLinkGroups>
         <mui:LinkGroup DisplayName="主页" >

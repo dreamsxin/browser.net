@@ -30,7 +30,9 @@ namespace EotuCore {
 			data["username"] = s_username;
 			data["password"] = s_password;
 
-			HttpClient httpClient("passport.eotu.com", 81);
+			std::string host;
+			Util::MarshalString(Config::host, host);
+			HttpClient httpClient(host.c_str(), Config::port);
 			std::string ret = httpClient.Post("/api/local/account/auth", data.toString(), timeout);
 
 			Json::Reader reader;
