@@ -20,7 +20,8 @@ namespace Gecko
 		nsIEmbeddingSiteWindow,
 		nsIInterfaceRequestor,
 		// weak reference creation
-		nsISupportsWeakReference
+		nsISupportsWeakReference,
+		nsIDOMEventListener
 	{
 		private WebProgressListener _webProgressListener=new WebProgressListener();
 		private nsIWeakReference _webProgressWeakReference;
@@ -67,6 +68,39 @@ namespace Gecko
             if (handler != null)
             {
                 handler(this, e);
+            }
+        }
+
+        /// <summary>
+        /// Register a listener for a custom jscrip-initiated MessageEvent
+        /// https://developer.mozilla.org/en/DOM/document.createEvent
+        /// http://help.dottoro.com/ljknkjqd.php
+        /// </summary>
+        /// <param name="eventName"></param>
+        /// <param name="action"></param>
+        /// <example>AddMessageEventListener("callMe", (message=>MessageBox.Show(message)));</example>
+        public void AddMessageEventListener(string eventName, Action<string> action)
+        {
+            AddMessageEventListener(eventName, action, true);
+        }
+
+        /// <summary>
+        /// Register a listener for a custom jscrip-initiated MessageEvent
+        /// https://developer.mozilla.org/en/DOM/document.createEvent
+        /// http://help.dottoro.com/ljknkjqd.php
+        /// </summary>
+        /// <param name="eventName"></param>
+        /// <param name="action"></param>
+        /// <example>AddMessageEventListener("callMe", (message=>MessageBox.Show(message)));</example>
+        public void AddMessageEventListener(string eventName, Action<string> action, bool useCapture)
+        {
+            nsIDOMEventTarget target = Xpcom.QueryInterface<nsIDOMEventTarget>(Xpcom.QueryInterface<nsIDOMWindow>(_webBrowser.Instance.GetContentDOMWindowAttribute()).GetWindowRootAttribute());
+            if (target != null)
+            {
+                // the argc parameter is the number of optionial argumetns we are passing. 
+                // (useCapture and wantsUntrusted are specified as optional so we always pass 2 when calling interface from C#)
+                target.AddEventListener(new nsAString(eventName), this, /*Review*/ useCapture, true, 2);
+                _messageEventListeners.Add(eventName, action);
             }
         }
 

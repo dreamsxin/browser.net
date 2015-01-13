@@ -33,7 +33,12 @@ namespace Gecko
 		private HwndSource _source;
 		#endregion
 
-		private uint _chromeFlags;
+        private uint _chromeFlags;
+        
+        /// <summary>
+        /// Additional DOM message listeners
+        /// </summary>
+        Dictionary<string, Action<string>> _messageEventListeners = new Dictionary<string, Action<string>>();
 
 
 		public IntPtr JSContext { get; protected set; }

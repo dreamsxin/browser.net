@@ -53,6 +53,18 @@ namespace Eotu.Client.Pages
 
         private void browser_OnInitCompleted(object sender, EventArgs e)
         {
+            if (!browserInitCompleted) {
+               /**
+                *  var event = new MessageEvent('ShowMessage', {
+		        *      'view': window,
+		        *      'bubbles': false,
+		        *      'cancelable': false,
+		        *      'data': 'Hello World!'
+	            * });
+                * document.dispatchEvent(event);
+                */
+                browser.AddMessageEventListener("ShowMessage", ((string s) => ShowMessage(s)));
+            }
             browserInitCompleted = true;
             browser_open(nav_uri);
         }
@@ -62,6 +74,11 @@ namespace Eotu.Client.Pages
             if (browserInitCompleted) {
                 browser.Navigate("http://www.eotu.com:81/" + uri);
             }
+        }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
         }
     }
 }

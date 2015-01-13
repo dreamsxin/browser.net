@@ -11,6 +11,7 @@ using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using EotuCore;
 using Eotu.Client.Content;
+using Eotu.Client.Browser;
 using Gecko;
 
 namespace Eotu.Client
@@ -42,11 +43,13 @@ namespace Eotu.Client
             }
             loadConfig();
             Xpcom.Initialize(XULRunnerLocator.GetXULRunnerLocation());
+            Gecko.PromptFactory.PromptServiceCreator = () => new MyCustomPromptService();
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
 			RemoveTrayIcon();
+            Xpcom.Shutdown();
 		}
 
 		private void AddTrayIcon()
