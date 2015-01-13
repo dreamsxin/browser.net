@@ -105,6 +105,7 @@
     <Compile Include="SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Page Include="Content\ContactsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

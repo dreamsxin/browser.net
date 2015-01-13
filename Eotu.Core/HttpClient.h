@@ -75,9 +75,9 @@ namespace EotuCore {
 
 			int runTime = 0;
 
-			std::string utf8str = Util::EncodeToUtf8(data);
+			std::string utf8data = Util::EncodeToUtf8(data);
 
-			httpConnection->Post(url.c_str(), utf8str.c_str());
+			httpConnection->Post(url.c_str(), utf8data.c_str());
 
 			while (runTime < timeout) {
 				Packet *packet = tcp->Receive();
@@ -90,9 +90,16 @@ namespace EotuCore {
 
 				if (httpConnection->IsBusy()==false) {
 					RakString fileContents = httpConnection->Read();
-					string utf8str = strstr(fileContents.C_String(), "\r\n\r\n");
 					string result;
-					Util::MarshalString(Util::DecodeFromUtf8(utf8str), result);
+
+					const char* tmp  = fileContents.C_String();
+					const char* p = strstr(tmp, "\r\n\r\n");
+					if (NULL == p) {
+						Util::MarshalString(Util::DecodeFromUtf8(tmp), result);
+					} else {
+						Util::MarshalString(Util::DecodeFromUtf8(p), result);
+					}
+					
 					getche();
 					Logger::Debug("recv:" + result);
 					return result;

@@ -14,6 +14,9 @@ namespace EotuCore {
 		property static String^ domain;
 		property static String^ host;
 		property static int port;
+		property static String^ username;
+		property static String^ password;
+		property static String^ token;
 
 	};
 

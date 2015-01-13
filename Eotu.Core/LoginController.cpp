@@ -18,6 +18,8 @@ namespace EotuCore {
 	{
 		_status = FALSE;
 		_message = System::String::Empty;
+		Username = System::String::Empty;
+		Password = System::String::Empty;
 
 		if (System::String::IsNullOrEmpty(username) || System::String::IsNullOrEmpty(password)) {
 			return FALSE;
@@ -42,6 +44,13 @@ namespace EotuCore {
 				if (result.isMember("status")) {
 					std::string status = result["status"].asString();
 					_status = (status.compare("ok") == 0);
+
+					Username = username;
+					Password = password;
+					if (result.isMember("data")) {
+						std::string token = result["data"].asString();
+						Token = gcnew String(token.c_str());
+					}
 				}
 				if (result.isMember("message")) {
 					std::string message = result["message"].asString();

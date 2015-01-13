@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
+using Eotu.Client.Content;
 
 namespace Eotu.Client
 {
@@ -22,12 +23,24 @@ namespace Eotu.Client
         public LoginWindow()
         {
             InitializeComponent();
+            LoginViewModel model = new LoginViewModel();
+            model.Username = EotuCore.Config.username;
+            this.DataContext = model;
         }
 
         private void button_login_Click(object sender, RoutedEventArgs e)
         {
             EotuCore.LoginController loginController = new EotuCore.LoginController();
-            if (loginController.login(this.textBox_username.Text, this.passwordBox.Password)) { 
+            if (loginController.login(this.textBox_username.Text, this.passwordBox.Password))
+            {
+                Dictionary<string, string> values = new Dictionary<string, string>();
+                values.Add("username", loginController.Username);
+                values.Add("password", loginController.Password);
+                values.Add("token", loginController.Token);
+
+                App app = (App)Application.Current;
+                app.saveConfig(values);
+                this.Hide();
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
                 this.Close();

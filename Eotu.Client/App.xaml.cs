@@ -100,11 +100,30 @@ namespace Eotu.Client
             EotuCore.Config.domain = ConfigurationManager.AppSettings["domain"];
             EotuCore.Config.host = ConfigurationManager.AppSettings["host"];
             EotuCore.Config.port = int.Parse(ConfigurationManager.AppSettings["port"]);
-            /*
+            EotuCore.Config.username = ConfigurationManager.AppSettings["username"];
+            EotuCore.Config.password = ConfigurationManager.AppSettings["password"];
+            EotuCore.Config.token = ConfigurationManager.AppSettings["token"];
+        }
+
+        /// <summary>
+        /// 更新配置文件
+        /// </summary>
+        public void saveConfig(Dictionary<string, string> values)
+        {
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            configuration.AppSettings.Settings["domain"].Value = "";
+            foreach (var item in values) {
+                if (ConfigurationManager.AppSettings[item.Key] == null)
+                {
+                    configuration.AppSettings.Settings.Add(item.Key, item.Value);
+                }
+                else
+                {
+                    configuration.AppSettings.Settings[item.Key].Value = item.Value;
+                }
+
+            }
             configuration.Save();
-             */
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         public ContactsViewModel getContactsViewModel()

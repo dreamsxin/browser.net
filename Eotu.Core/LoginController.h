@@ -12,6 +12,10 @@ namespace EotuCore {
 		Boolean _status;
 		String^ _message;
 	public:
+		property String^ Username;
+		property String^ Password;
+		property String^ Token;
+	public:
 		LoginController(void);
 
 		inline Boolean login(String^ username, String^ password) {
