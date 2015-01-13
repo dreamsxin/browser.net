@@ -48,7 +48,7 @@ namespace Eotu.Client.Pages
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            browser_open("http://www.eotu.com:81/");
+            browser_open(EotuCore.Config.domain);
         }
 
         private void browser_OnInitCompleted(object sender, EventArgs e)
@@ -72,7 +72,7 @@ namespace Eotu.Client.Pages
         private void browser_open(string uri)
         {
             if (browserInitCompleted) {
-                browser.Navigate("http://www.eotu.com:81/" + uri);
+                browser.Navigate(EotuCore.Config.domain + uri);
             }
         }
 

@@ -42,5 +42,14 @@ namespace Gecko
 
 
 		public IntPtr JSContext { get; protected set; }
+
+
+        public nsIWebBrowserFocus WebBrowserFocus
+        {
+            get
+            {
+                return this._webBrowserFocus;
+            }
+        }
 	}
 }
