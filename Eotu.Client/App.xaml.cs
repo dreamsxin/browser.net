@@ -22,15 +22,68 @@ namespace Eotu.Client
     /// </summary>
     public partial class App : Application
     {
+        const int SW_HIDE = 0;
+        const int SW_SHOWNORMAL = 1;
+        const int SW_SHOWMINIMIZED = 2;
+        const int SW_SHOWMAXIMIZED = 3;
+        const int SW_SHOWNOACTIVATE = 4;
+        const int SW_RESTORE = 9;
+        const int SW_SHOWDEFAULT = 10;
+
+        [DllImport("User32.dll", EntryPoint = "SetForegroundWindow")]
+        public static extern bool SetForegroundWindow(int hWnd);
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
         [DllImport("user32.dll")]
         private static extern bool IsIconic(IntPtr hWnd);
+        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        public static extern Int32 FindWindow(String lpClassName, String lpWindowName);
+
+        [DllImport("User32.dll")]
+        private static extern int RegisterWindowMessage(string lpString);
+        //For use with WM_COPYDATA and COPYDATASTRUCT
+        [DllImport("User32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(int hWnd, int Msg, int wParam, ref COPYDATASTRUCT lParam);
+        //For use with WM_COPYDATA and COPYDATASTRUCT
+        [DllImport("User32.dll", EntryPoint = "PostMessage")]
+        public static extern int PostMessage(int hWnd, int Msg, int wParam, ref COPYDATASTRUCT lParam);
+        [DllImport("User32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(int hWnd, int Msg, int wParam, IntPtr lParam);
+        [DllImport("User32.dll", EntryPoint = "PostMessage")]
+        public static extern int PostMessage(int hWnd, int Msg, int wParam, IntPtr lParam); 
+        
+        public const int WM_USER = 0x400;
+        public const int WM_COPYDATA = 0x4A;
+
+        //Used for WM_COPYDATA for string messages
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cbData;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string lpData;
+        }
 
         private NotifyIcon notifyIcon;
         private static ContactsViewModel contactsViewModel;
+
+        public int SendWindowsStringMessage(int hWnd, string msg)
+        {
+            int result = 0;
+            if (hWnd > 0)
+            {
+                byte[] sarr = System.Text.Encoding.Default.GetBytes(msg);
+                int len = sarr.Length;
+                COPYDATASTRUCT cds;
+                cds.dwData = (IntPtr)100;
+                cds.lpData = msg;
+                cds.cbData = len + 1;
+                result = SendMessage(hWnd, WM_COPYDATA, 0, ref cds);
+            }
+            return result;
+        }
 
 		/// <summary>  
 		/// 只打开一个进程  
@@ -42,13 +95,16 @@ namespace Eotu.Client
             Process[] processes = Process.GetProcessesByName(currentProcess.ProcessName);
             int count = processes.Count();
 
-			if (count > 1) {
+            if (count > 1)
+            {
                 if (IsIconic(processes[0].MainWindowHandle))
                 {
-                    ShowWindowAsync(processes[0].MainWindowHandle, 9);
+                    ShowWindowAsync(processes[0].MainWindowHandle, SW_RESTORE);
                 }
                 SetForegroundWindow(processes[0].MainWindowHandle);
-				MessageBox.Show("Already an instance is running...");
+                MessageBox.Show("Already an instance is running...");
+
+                SendWindowsStringMessage(processes[0].MainWindowHandle.ToInt32(), "dreamsxin@qq.com"); 
 				App.Current.Shutdown(); 
 			} else {
 				// base.OnStartup(e);
@@ -147,6 +203,32 @@ namespace Eotu.Client
                 contactsViewModel = new ContactsViewModel();
             }
             return contactsViewModel;
+        }
+
+        public bool bringAppToFront(int hWnd)
+        {
+            return SetForegroundWindow(hWnd);
+        }
+
+        public int sendWindowsStringMessage(int hWnd, int wParam, string msg)
+        {
+            int result = 0;
+            if (hWnd > 0)
+            {
+                byte[] sarr = System.Text.Encoding.Default.GetBytes(msg);
+                int len = sarr.Length;
+                COPYDATASTRUCT cds;
+                cds.dwData = (IntPtr)100;
+                cds.lpData = msg;
+                cds.cbData = len + 1;
+                result = SendMessage(hWnd, WM_COPYDATA, wParam, ref cds);
+            }
+            return result;
+        }
+
+        public int getWindowId(string className, string windowName)
+        {
+            return FindWindow(className, windowName);
         }
     }
 }

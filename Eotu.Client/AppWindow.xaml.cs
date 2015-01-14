@@ -15,6 +15,8 @@ using Newtonsoft.Json;
 using Eotu.Client.Browser;
 using Eotu.Client.Util;
 using Gecko;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace Eotu.Client
 {
@@ -27,6 +29,25 @@ namespace Eotu.Client
         public AppWindow()
         {
             InitializeComponent();
+            this.SourceInitialized += new EventHandler(AppWindow_SourceInitialized);
+        }
+
+        void AppWindow_SourceInitialized(object sender, EventArgs e)
+        {
+            IntPtr hwnd = new WindowInteropHelper(this).Handle;
+            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));
+        }
+
+        IntPtr WndProc(IntPtr hwnd, int type, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (type)
+            {
+                case Eotu.Client.App.WM_COPYDATA:
+                    App.COPYDATASTRUCT cp = (App.COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(App.COPYDATASTRUCT));
+                    MessageBox.Show(cp.lpData);
+                    break;
+            }
+            return IntPtr.Zero;
         }
 
         private void browser_OnInitCompleted(object sender, EventArgs e)

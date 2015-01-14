@@ -31,5 +31,5 @@ var Eotu = {
 $(document).ready(function () {
 	Eotu.SetWindowTitle('登录');
 	Eotu.SetWindowSize($(document).outerWidth(true), $(document).outerHeight(true) + 80);
-	Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
+	//Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
 });
