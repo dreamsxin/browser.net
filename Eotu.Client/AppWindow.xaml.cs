@@ -68,7 +68,7 @@ namespace Eotu.Client
 
         public void AjaxGet(string json) {
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://dev.eotu.com:81/api/front/index/scene");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(message.url);
 			request.Method = "GET";
 
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();

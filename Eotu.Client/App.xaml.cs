@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using EotuCore;
@@ -21,6 +22,13 @@ namespace Eotu.Client
     /// </summary>
     public partial class App : Application
     {
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+        [DllImport("user32.dll")]
+        private static extern bool IsIconic(IntPtr hWnd);
+
         private NotifyIcon notifyIcon;
         private static ContactsViewModel contactsViewModel;
 
@@ -30,10 +38,16 @@ namespace Eotu.Client
 		/// <param name="e"></param>  
 		protected override void OnStartup(StartupEventArgs e)
 		{
-			Process currentProcess = Process.GetCurrentProcess();  
-			int count = Process.GetProcessesByName(currentProcess.ProcessName).Count();
+			Process currentProcess = Process.GetCurrentProcess();
+            Process[] processes = Process.GetProcessesByName(currentProcess.ProcessName);
+            int count = processes.Count();
 
 			if (count > 1) {
+                if (IsIconic(processes[0].MainWindowHandle))
+                {
+                    ShowWindowAsync(processes[0].MainWindowHandle, 9);
+                }
+                SetForegroundWindow(processes[0].MainWindowHandle);
 				MessageBox.Show("Already an instance is running...");
 				App.Current.Shutdown(); 
 			} else {
