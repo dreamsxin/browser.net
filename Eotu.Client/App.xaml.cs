@@ -41,6 +41,7 @@ namespace Eotu.Client
                 RemoveTrayIcon();
                 AddTrayIcon();
             }
+
             loadConfig();
             Xpcom.Initialize(XULRunnerLocator.GetXULRunnerLocation());
             Gecko.PromptFactory.PromptServiceCreator = () => new MyCustomPromptService();

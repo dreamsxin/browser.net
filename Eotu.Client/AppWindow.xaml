@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:gecko="clr-namespace:Gecko;assembly=Geckofx-Wpf" 
-        Title="AppWindow" Height="300" Width="300"
-        WindowStartupLocation="CenterScreen" Icon="/Eotu.Client;component/Assets/devil.png">
+        Title="AppWindow" Height="300" Width="400"
+        WindowStartupLocation="CenterScreen" Icon="/Eotu.Client;component/Assets/devil.png" ResizeMode="NoResize">
     
     <DockPanel>
             <gecko:GeckoWebBrowser x:Name="browser" GeckoInitCompleted="browser_OnInitCompleted" />

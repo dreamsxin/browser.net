@@ -26,6 +26,9 @@ namespace Gecko
 		private nsIWebNavigation _webNav;
 
 		private nsIWebBrowserFocus _webBrowserFocus;
+
+        GeckoWindow _Window;
+        GeckoDomDocument _Document;
 		#endregion
 
 

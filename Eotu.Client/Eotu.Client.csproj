@@ -51,6 +51,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>.\FirstFloor.ModernUI.dll</HintPath>
@@ -60,14 +63,11 @@
       <HintPath>.\Microsoft.Windows.Shell.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Debug\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -98,6 +98,7 @@
     <Compile Include="Pages\WebBrowser.xaml.cs">
       <DependentUpon>WebBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\ExecutionEnvironment.cs" />
     <Compile Include="ViewModel\ContactsViewModel.cs" />
     <Compile Include="Loader\ContactsLoader.cs" />
     <Compile Include="Content\SettingsAppearance.xaml.cs">
@@ -234,10 +235,19 @@
       <Project>{B52FD785-EC50-4767-B085-300D94DE8205}</Project>
       <Name>Geckofx-Wpf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj">
+      <Project>{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}</Project>
+      <Name>Newtonsoft.Json.Net40</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /r /y "$(SolutionDir)$(ConfigurationName)\*.dll" "$(TargetDir)*.dll"</PreBuildEvent>
+    <PreBuildEvent>xcopy /r /y "$(SolutionDir)$(ConfigurationName)\*.dll" "$(TargetDir)*.dll"
+xcopy /r /i /y /s /e "$(SolutionDir)UI\*" "$(TargetDir)UI\*"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -142,7 +142,24 @@ namespace Gecko
 
 		public GeckoWindow Window
 		{
-			get { throw new NotImplementedException(); }
+            get
+            {
+                if (_webBrowser == null)
+                    return null;
+
+                nsIWebBrowserChrome chromeBrowser = this;
+                nsIWebBrowser browser = chromeBrowser.GetWebBrowserAttribute();
+
+                if (_Window != null)
+                {
+                    var domWindow = browser.GetContentDOMWindowAttribute();
+                    if (_Window.DomWindow == domWindow)
+                        return _Window;
+                    _Window.Dispose();
+                }
+                _Window = browser.GetContentDOMWindowAttribute().Wrap(x => new GeckoWindow(x));
+                return _Window;
+            }
 		}
 
 		public bool IsDisposed
