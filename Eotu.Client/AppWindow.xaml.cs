@@ -57,6 +57,8 @@ namespace Eotu.Client
                 browser.AddMessageEventListener("AjaxGet", ((string json) => AjaxGet(json)));
                 browser.AddMessageEventListener("ShowMessage", ((string json) => ShowMessage(json)));
                 browser.AddMessageEventListener("SetWindowTitle", ((string json) => SetWindowTitle(json)));
+                browser.AddMessageEventListener("SetWindowStyle", ((string json) => SetWindowStyle(json)));
+                browser.AddMessageEventListener("SetResizeMode", ((string json) => SetResizeMode(json)));
                 browser.AddMessageEventListener("SetWindowSize", ((string json) => SetWindowSize(json)));
                 string path = Path.Combine(ExecutionEnvironment.DirectoryOfExecutingAssembly, "UI/index.html");
                 path = Path.GetFullPath(path);
@@ -80,11 +82,48 @@ namespace Eotu.Client
             this.Title = message.title;
         }
 
+        public void SetWindowStyle(string json)
+        {
+            BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
+            switch (message.style)
+            {
+                case "None":
+                    this.WindowStyle = WindowStyle.None;
+                    break;
+                case "SingleBorderWindow":
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    break;
+                case "ThreeDBorderWindow":
+                    this.WindowStyle = WindowStyle.ThreeDBorderWindow;
+                    break;
+                case "ToolWindow":
+                    this.WindowStyle = WindowStyle.ToolWindow;
+                    break;
+            }
+        }
+
+        public void SetResizeMode(string json)
+        {
+            BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
+            switch (message.mode)
+            {
+                case "CanMinimize":
+                    this.ResizeMode = ResizeMode.CanMinimize;
+                    break;
+                case "CanResize":
+                    this.ResizeMode = ResizeMode.CanResize;
+                    break;
+                case "CanResizeWithGrip":
+                    this.ResizeMode = ResizeMode.CanResizeWithGrip;
+                    break;
+            }
+        }
+
         public void SetWindowSize(string json)
         {
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
-            this.Width = message.width;
-            this.Height = message.height;
+            browser.Width = message.width;
+            browser.Height = message.height;
         }
 
         public void AjaxGet(string json) {

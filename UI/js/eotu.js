@@ -1,4 +1,15 @@
 var Eotu = {
+	WindowStyle: {
+		None: 'None',
+		SingleBorderWindow: 'SingleBorderWindow',
+		ThreeDBorderWindow: 'ThreeDBorderWindow',
+		ToolWindow: 'ToolWindow'
+	},
+	ResizeMode: {
+		CanMinimize: 'CanMinimize',
+		CanResize: 'CanResize',
+		CanResizeWithGrip: 'CanResizeWithGrip'
+	},	
 	AjaxGet: function (url) {
 		this.Call('AjaxGet', {url: url});
 	},
@@ -7,6 +18,12 @@ var Eotu = {
 	},
 	SetWindowTitle: function (title) {
 		this.Call('SetWindowTitle', {title: title});
+	},
+	SetWindowStyle: function (style) {
+		this.Call('SetWindowStyle', {style: style});
+	},
+	SetResizeMode: function (mode) {
+		this.Call('SetResizeMode', {mode: mode});
 	},
 	SetWindowSize: function (width, height) {
 		this.Call('SetWindowSize', {width: width, height: height});
@@ -30,6 +47,7 @@ var Eotu = {
 
 $(document).ready(function () {
 	Eotu.SetWindowTitle('登录');
-	Eotu.SetWindowSize($(document).outerWidth(true), $(document).outerHeight(true) + 80);
+	Eotu.SetWindowSize(300, $(document).outerHeight(true));
+	//Eotu.SetWindowStyle(Eotu.WindowStyle.None);
 	//Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
 });
