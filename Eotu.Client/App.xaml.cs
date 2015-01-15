@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -14,6 +15,7 @@ using EotuCore;
 using Eotu.Client.Content;
 using Eotu.Client.Browser;
 using Gecko;
+using Eotu.Client.Util;
 
 namespace Eotu.Client
 {
@@ -68,6 +70,7 @@ namespace Eotu.Client
 
         private NotifyIcon notifyIcon;
         private static ContactsViewModel contactsViewModel;
+        public const string XulRunnerLocation = @"C:\Program Files\Mozilla Firefox";
 
         public int SendWindowsStringMessage(int hWnd, string msg)
         {
@@ -85,13 +88,29 @@ namespace Eotu.Client
             return result;
         }
 
+        /// <summary>
+        /// Application Entry Point.
+        /// </summary>
+        [System.STAThreadAttribute()]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public static void Main(string[] args)
+        {
+            Eotu.Client.App app = new Eotu.Client.App();
+            if (args.Count() > 0)
+            {
+                EotuCore.Config.command = args[0];
+            }
+            app.InitializeComponent();
+            app.Run();
+        }
+
 		/// <summary>  
 		/// 只打开一个进程  
 		/// </summary>  
 		/// <param name="e"></param>  
-		protected override void OnStartup(StartupEventArgs e)
-		{
-			Process currentProcess = Process.GetCurrentProcess();
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Process currentProcess = Process.GetCurrentProcess();
             Process[] processes = Process.GetProcessesByName(currentProcess.ProcessName);
             int count = processes.Count();
 
@@ -102,20 +121,21 @@ namespace Eotu.Client
                     ShowWindowAsync(processes[0].MainWindowHandle, SW_RESTORE);
                 }
                 SetForegroundWindow(processes[0].MainWindowHandle);
-                MessageBox.Show("Already an instance is running...");
 
-                SendWindowsStringMessage(processes[0].MainWindowHandle.ToInt32(), "dreamsxin@qq.com"); 
-				App.Current.Shutdown(); 
-			} else {
-				// base.OnStartup(e);
+                SendWindowsStringMessage(processes[0].MainWindowHandle.ToInt32(), EotuCore.Config.command);
+                App.Current.Shutdown();
+            }
+            else
+            {
+                // base.OnStartup(e);
                 RemoveTrayIcon();
                 AddTrayIcon();
             }
 
             loadConfig();
-            Xpcom.Initialize(XULRunnerLocator.GetXULRunnerLocation());
+            Xpcom.Initialize(Path.Combine(ExecutionEnvironment.DirectoryOfExecutingAssembly, "xulrunner"));
             Gecko.PromptFactory.PromptServiceCreator = () => new MyCustomPromptService();
-		}
+        }
 
 		protected override void OnExit(ExitEventArgs e)
 		{

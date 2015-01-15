@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geckofx-Wpf", "Geckofx-Wpf\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newtonsoft.Json.Net40", "Newtonsoft.Json\Newtonsoft.Json.Net40.csproj", "{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EotuSetup", "EotuSetup\EotuSetup.vdproj", "{448B2863-C797-4593-B5D9-304F17502C91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Linux|Any CPU = Debug_Linux|Any CPU
@@ -174,8 +176,8 @@ Global
 		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release_Windows|x64.Build.0 = Release|x64
 		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release_Windows|x86.ActiveCfg = Release|x64
 		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|Any CPU.ActiveCfg = Release|x64
-		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|Mixed Platforms.Build.0 = Release|x64
+		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|Win32.ActiveCfg = Release|Win32
 		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|Win32.Build.0 = Release|Win32
 		{BC75CD23-CB75-4233-A305-B7328825A9A5}.Release|x64.ActiveCfg = Release|x64
@@ -311,6 +313,36 @@ Global
 		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Win32.ActiveCfg = Release|Any CPU
 		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|x64.ActiveCfg = Release|Any CPU
 		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|x86.ActiveCfg = Release|Any CPU
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Linux|Any CPU.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Linux|Mixed Platforms.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Linux|Win32.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Linux|x64.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Linux|x86.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Windows|Any CPU.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Windows|Mixed Platforms.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Windows|Win32.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Windows|x64.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug_Windows|x86.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug|Any CPU.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug|Win32.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug|x64.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Debug|x86.ActiveCfg = Debug
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Linux|Any CPU.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Linux|Mixed Platforms.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Linux|Win32.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Linux|x64.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Linux|x86.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Windows|Any CPU.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Windows|Mixed Platforms.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Windows|Win32.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Windows|x64.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release_Windows|x86.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release|Any CPU.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release|Mixed Platforms.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release|Win32.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release|x64.ActiveCfg = Release
+		{448B2863-C797-4593-B5D9-304F17502C91}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

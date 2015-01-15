@@ -83,10 +83,10 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="AppWindow.xaml.cs">
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
@@ -243,7 +243,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>xcopy /r /y "$(SolutionDir)$(ConfigurationName)\*.dll" "$(TargetDir)*.dll"
-xcopy /r /i /y /s /e "$(SolutionDir)UI\*" "$(TargetDir)UI\*"</PreBuildEvent>
+xcopy /r /i /y /s /e "$(SolutionDir)UI\*" "$(TargetDir)UI\*"
+xcopy /r /i /y /s /e "$(SolutionDir)PutXulRunnerFolderHere\*" "$(TargetDir)*"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>

@@ -11,6 +11,7 @@ namespace EotuCore {
 	public ref class Config
 	{
 	public:
+		property static String^ command;
 		property static String^ domain;
 		property static String^ host;
 		property static int port;
