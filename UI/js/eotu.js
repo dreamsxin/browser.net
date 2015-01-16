@@ -50,4 +50,7 @@ $(document).ready(function () {
 	Eotu.SetWindowSize(300, $(document).outerHeight(true));
 	//Eotu.SetWindowStyle(Eotu.WindowStyle.None);
 	//Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
+	if(document.getElementById('eotusocket').valid){
+		alert(document.getElementById('eotusocket').echo("EotuSock 插件加载成功"));
+	}
 });

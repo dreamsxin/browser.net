@@ -134,6 +134,7 @@ namespace Eotu.Client
 
             loadConfig();
             Xpcom.Initialize(Path.Combine(ExecutionEnvironment.DirectoryOfExecutingAssembly, "xulrunner"));
+            Gecko.GeckoPreferences.Default["extensions.blocklist.enabled"] = false;
             Gecko.PromptFactory.PromptServiceCreator = () => new MyCustomPromptService();
         }
 
