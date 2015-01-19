@@ -60,6 +60,7 @@ namespace Eotu.Client
                 browser.AddMessageEventListener("SetWindowStyle", ((string json) => SetWindowStyle(json)));
                 browser.AddMessageEventListener("SetResizeMode", ((string json) => SetResizeMode(json)));
                 browser.AddMessageEventListener("SetWindowSize", ((string json) => SetWindowSize(json)));
+                browser.AddMessageEventListener("Navigate", ((string json) => Navigate(json)));
                 string path = Path.Combine(ExecutionEnvironment.DirectoryOfExecutingAssembly, "UI/index.html");
                 path = Path.GetFullPath(path);
                 var uri = new Uri(path);
@@ -124,6 +125,12 @@ namespace Eotu.Client
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
             browser.Width = message.width;
             browser.Height = message.height;
+        }
+
+        public void Navigate(string json)
+        {
+            BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
+            browser.Navigate(message.url);
         }
 
         public void AjaxGet(string json) {
