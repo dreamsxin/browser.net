@@ -49,6 +49,12 @@ var Eotu = {
 	ShowMessage: function (title, message) {
 		this.Call('ShowMessage', {title: title, message: message});
 	},
+	PlaySound: function (path, local) {
+		this.Call('PlaySound', {path: path, local: local});
+	},
+	SetWindowActivate: function () {
+		this.Call('SetWindowActivate', {topmost: false});
+	},
 	SetWindowTitle: function (title) {
 		this.Call('SetWindowTitle', {title: title});
 	},
@@ -132,6 +138,7 @@ App.LoginController = Ember.ObjectController.extend({
 });
 App.MainContactsView = Ember.View.extend({
 	didInsertElement: function() {
+		Eotu.PlaySound('ui/sound/login.wav', true);
 		Eotu.SetWindowSize(760, $(document).outerHeight(true));
 	}
 });
@@ -139,6 +146,7 @@ App.MainContactsView = Ember.View.extend({
 $(document).ready(function () {
 	Eotu.SetWindowTitle('登录');
 	Eotu.SetWindowSize(300, $(document).outerHeight(true));
+	Eotu.PlaySound('ui/sound/start.wav', true);
 	//Eotu.SetWindowStyle(Eotu.WindowStyle.None);
 	//Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
 
