@@ -14,7 +14,9 @@ namespace Eotu.Client.Browser
         public string message;
         public int width;
         public int height;
+        public bool local;
         public string url;
+        public string path;
         public string data;
         public bool topmost;
     }

@@ -56,6 +56,7 @@ namespace Eotu.Client
             {
                 browser.AddMessageEventListener("AjaxGet", ((string json) => AjaxGet(json)));
                 browser.AddMessageEventListener("ShowMessage", ((string json) => ShowMessage(json)));
+                browser.AddMessageEventListener("PlaySound", ((string json) => PlaySound(json)));
                 browser.AddMessageEventListener("SetWindowActivate", ((string json) => SetWindowActivate(json)));
                 browser.AddMessageEventListener("SetWindowTitle", ((string json) => SetWindowTitle(json)));
                 browser.AddMessageEventListener("SetWindowStyle", ((string json) => SetWindowStyle(json)));
@@ -75,6 +76,19 @@ namespace Eotu.Client
         {
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
             MessageBox.Show(message.message, message.title);
+        }
+
+        public void PlaySound(string json)
+        {
+            BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
+            string path = message.path;
+            if (message.local)
+            {
+                path = Path.Combine(ExecutionEnvironment.DirectoryOfExecutingAssembly, path);
+                path = Path.GetFullPath(path);
+            }
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(path);
+            player.Play();
         }
 
         public void SetWindowActivate(string json)
