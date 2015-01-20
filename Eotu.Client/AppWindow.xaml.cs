@@ -65,7 +65,6 @@ namespace Eotu.Client
                 path = Path.GetFullPath(path);
                 var uri = new Uri(path);
                 browser.Navigate(uri.AbsoluteUri);
-                //browser.Navigate(EotuCore.Config.domain + "app/index/index");
                 browser.WebBrowserFocus.Activate();
             }
             browserInitCompleted = true;

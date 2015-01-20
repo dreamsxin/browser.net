@@ -4,7 +4,7 @@
         xmlns:gecko="clr-namespace:Gecko;assembly=Geckofx-Wpf" 
         Title="AppWindow" Height="300" Width="400"
         WindowStartupLocation="CenterScreen" Icon="/Eotu.Client;component/Assets/devil.png"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     
     <DockPanel>
             <gecko:GeckoWebBrowser x:Name="browser" GeckoInitCompleted="browser_OnInitCompleted" />

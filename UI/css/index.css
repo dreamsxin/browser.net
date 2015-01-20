@@ -33,6 +33,10 @@ body{
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+.form-signin input[type="email"]
+{
+    border-radius: 0;
+}
 .account-wall
 {
     margin-top: 60px;
@@ -56,22 +60,6 @@ body{
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
-}
-.select-img
-{
-	border-radius: 50%;
-    display: block;
-    height: 75px;
-    margin: 0 30px 10px;
-    width: 75px;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-}
-.select-name
-{
-    display: block;
-    margin: 30px 10px 10px;
 }
 
 .logo-img

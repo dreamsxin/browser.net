@@ -85,6 +85,57 @@ var Eotu = {
 	}
 };
 
+App = Ember.Application.create();
+App.ApplicationView = Ember.View.extend({
+	templateName: 'application'
+});
+App.Router.map(function () {
+	this.route("login", {path: "/"});
+	this.route("register");
+	this.route('about');
+	this.resource('main', function () {
+		this.route('contacts', {path: '/:contact_name'});
+	});
+});
+App.LoginController = Ember.ObjectController.extend({
+	form: {
+		username: null,
+		password: null
+	},
+	actions: {
+		login: function () {
+			var _this = this;
+			var json = JSON.stringify(this.get('form'));
+			var sockid;
+			sockid = Eotu.Connect('192.168.1.108', 81, {
+				'connected': function () {
+					Eotu.Send("POST /api/local/account/auth HTTP/1.1\r\nHost: www.eotu.com:81\r\nContent-Length: " + json.length + "\r\nConnection: Close\r\n\r\n" + json);
+				},
+				'change': function (code, status) {
+					//alert(status);
+				},
+				'receive': function (data) {
+					if (data.indexOf("\r\n\r\n") >= 0) {
+						data = data.substring(data.indexOf("\r\n\r\n")+4, data.length);
+					}
+					if (data.length > 0) {
+						var obj = jQuery.parseJSON(data);
+						if (obj.status === 'ok') {
+							_this.transitionToRoute('/main/contacts');
+						}
+					}
+				},
+				'tcp': true
+			});
+		}
+	}
+});
+App.MainContactsView = Ember.View.extend({
+	didInsertElement: function() {
+		Eotu.SetWindowSize(760, $(document).outerHeight(true));
+	}
+});
+
 $(document).ready(function () {
 	Eotu.SetWindowTitle('登录');
 	Eotu.SetWindowSize(300, $(document).outerHeight(true));
@@ -94,28 +145,5 @@ $(document).ready(function () {
 	Eotu.Init();
 	if (Eotu.Socket.valid) {
 		Eotu.console.log('EotuSock 插件加载成功');
-		$('#loginForm').submit(function () {
-			var sockid;
-			sockid = Eotu.Connect('192.168.1.108', 81, {
-				'connected': function () {
-					var json = JSON.stringify($('#loginForm').serializeJSON());
-					Eotu.Send("POST /api/local/account/auth HTTP/1.1\r\nHost: www.eotu.com:81\r\nContent-Length: " + json.length + "\r\nConnection: Close\r\n\r\n" + json);
-				},
-				'change': function (code, status) {
-					alert(status);
-				},
-				'receive': function (data) {
-					if (data.indexOf("\r\n\r\n") >= 0) {
-						data = data.substring(data.indexOf("\r\n\r\n"), data.length);
-					}
-					var obj = jQuery.parseJSON(data);
-					if (obj.status == 'ok') {
-						location.href = 'main.html';
-					}
-				},
-				'tcp': true
-			});
-			return false;
-		});
 	}
 });
