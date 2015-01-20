@@ -56,6 +56,7 @@ namespace Eotu.Client
             {
                 browser.AddMessageEventListener("AjaxGet", ((string json) => AjaxGet(json)));
                 browser.AddMessageEventListener("ShowMessage", ((string json) => ShowMessage(json)));
+                browser.AddMessageEventListener("SetWindowActivate", ((string json) => SetWindowActivate(json)));
                 browser.AddMessageEventListener("SetWindowTitle", ((string json) => SetWindowTitle(json)));
                 browser.AddMessageEventListener("SetWindowStyle", ((string json) => SetWindowStyle(json)));
                 browser.AddMessageEventListener("SetResizeMode", ((string json) => SetResizeMode(json)));
@@ -74,6 +75,13 @@ namespace Eotu.Client
         {
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
             MessageBox.Show(message.message, message.title);
+        }
+
+        public void SetWindowActivate(string json)
+        {
+            BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
+            this.Topmost = message.topmost;
+            this.Activate();
         }
 
         public void SetWindowTitle(string json)

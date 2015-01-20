@@ -16,5 +16,6 @@ namespace Eotu.Client.Browser
         public int height;
         public string url;
         public string data;
+        public bool topmost;
     }
 }
