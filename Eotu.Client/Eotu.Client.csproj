@@ -56,14 +56,6 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FirstFloor.ModernUI">
-      <HintPath>.\FirstFloor.ModernUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Windows.Shell">
-      <HintPath>.\Microsoft.Windows.Shell.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -93,72 +85,20 @@
     </Compile>
     <Compile Include="Browser\BrowserMessage.cs" />
     <Compile Include="Browser\MyCustomPromptService.cs" />
-    <Compile Include="Content\ContactsList.xaml.cs">
-      <DependentUpon>ContactsList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WebBrowser.xaml.cs">
-      <DependentUpon>WebBrowser.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Util\ExecutionEnvironment.cs" />
-    <Compile Include="ViewModel\ContactsViewModel.cs" />
-    <Compile Include="Loader\ContactsLoader.cs" />
-    <Compile Include="Content\SettingsAppearance.xaml.cs">
-      <DependentUpon>SettingsAppearance.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\SettingsAppearanceViewModel.cs" />
-    <Compile Include="Pages\Contacts.xaml.cs">
-      <DependentUpon>Contacts.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Page Include="AppWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\ContactsList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\SettingsAppearance.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Pages\Contacts.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Settings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WebBrowser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SplashWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,11 +163,6 @@
     <None Include="Assets\notify.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Eotu.Core\Eotu.Core.vcxproj">
-      <Project>{EFB949DC-75B2-4668-AA06-7426257FCD17}</Project>
-      <Name>Eotu.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Geckofx-Core\Geckofx-Core.csproj">
       <Project>{6AB4EEE6-1889-43AB-83F7-A4F083230BE7}</Project>
       <Name>Geckofx-Core</Name>

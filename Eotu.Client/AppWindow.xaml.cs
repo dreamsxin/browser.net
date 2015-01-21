@@ -30,6 +30,7 @@ namespace Eotu.Client
         {
             InitializeComponent();
             this.SourceInitialized += new EventHandler(AppWindow_SourceInitialized);
+            new SplashWindow().ShowDialog();
         }
 
         void AppWindow_SourceInitialized(object sender, EventArgs e)

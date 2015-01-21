@@ -11,8 +11,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
-using EotuCore;
-using Eotu.Client.Content;
 using Eotu.Client.Browser;
 using Gecko;
 using Eotu.Client.Util;
@@ -69,7 +67,6 @@ namespace Eotu.Client
         }
 
         private NotifyIcon notifyIcon;
-        private static ContactsViewModel contactsViewModel;
         public const string XulRunnerLocation = @"C:\Program Files\Mozilla Firefox";
 
         public int SendWindowsStringMessage(int hWnd, string msg)
@@ -98,7 +95,7 @@ namespace Eotu.Client
             Eotu.Client.App app = new Eotu.Client.App();
             if (args.Count() > 0)
             {
-                EotuCore.Config.command = args[0];
+                Config.command = args[0];
             }
             app.InitializeComponent();
             app.Run();
@@ -122,7 +119,7 @@ namespace Eotu.Client
                 }
                 SetForegroundWindow(processes[0].MainWindowHandle);
 
-                SendWindowsStringMessage(processes[0].MainWindowHandle.ToInt32(), EotuCore.Config.command);
+                SendWindowsStringMessage(processes[0].MainWindowHandle.ToInt32(), Config.command);
                 App.Current.Shutdown();
             }
             else
@@ -189,12 +186,12 @@ namespace Eotu.Client
         /// </summary>
         private void loadConfig()
         {
-            EotuCore.Config.domain = ConfigurationManager.AppSettings["domain"];
-            EotuCore.Config.host = ConfigurationManager.AppSettings["host"];
-            EotuCore.Config.port = int.Parse(ConfigurationManager.AppSettings["port"]);
-            EotuCore.Config.username = ConfigurationManager.AppSettings["username"];
-            EotuCore.Config.password = ConfigurationManager.AppSettings["password"];
-            EotuCore.Config.token = ConfigurationManager.AppSettings["token"];
+            Config.domain = ConfigurationManager.AppSettings["domain"];
+            Config.host = ConfigurationManager.AppSettings["host"];
+            Config.port = int.Parse(ConfigurationManager.AppSettings["port"]);
+            Config.username = ConfigurationManager.AppSettings["username"];
+            Config.password = ConfigurationManager.AppSettings["password"];
+            Config.token = ConfigurationManager.AppSettings["token"];
         }
 
         /// <summary>
@@ -216,14 +213,6 @@ namespace Eotu.Client
             }
             configuration.Save();
             ConfigurationManager.RefreshSection("appSettings");
-        }
-
-        public ContactsViewModel getContactsViewModel()
-        {
-            if (contactsViewModel == null) {
-                contactsViewModel = new ContactsViewModel();
-            }
-            return contactsViewModel;
         }
 
         public bool bringAppToFront(int hWnd)
