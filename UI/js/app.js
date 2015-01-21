@@ -1,8 +1,9 @@
 define([
 	'ember',
 	'controllers/login',
-	'views/login'
-], function (Ember, LoginController, LoginView) {
+	'views/login',
+	'eotu'
+], function (Ember, LoginController, LoginView, Eotu) {
 	return Ember.Application.extend({
 		name: "App",
 		LoginController: LoginController,

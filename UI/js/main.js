@@ -46,7 +46,6 @@ define(['handlebars'], function (Handlebars) {
 
 		$(document).ready(function () {
 			Eotu.SetWindowTitle('登录');
-			Eotu.SetWindowSize(300, $(document).outerHeight(true));
 			Eotu.PlaySound('ui/sound/start.wav', true);
 			//Eotu.SetWindowStyle(Eotu.WindowStyle.None);
 			//Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
