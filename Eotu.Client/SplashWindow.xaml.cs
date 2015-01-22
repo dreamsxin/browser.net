@@ -34,7 +34,7 @@ namespace Eotu.Client
 
         private void load()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
             this.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)delegate() { Close(); });
         }
     }
