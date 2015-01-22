@@ -12,9 +12,8 @@ require.config({
 		views: '../views',
 		templates: '../templates',
 		jquery: 'jquery-2.1.3',
-		bootstrap: 'bootstrap.min',
 		handlebars: 'handlebars-v2.0.0',
-		ember: 'ember.min'
+		ember: 'ember'
 	},
 	shim: {
 		ember: {

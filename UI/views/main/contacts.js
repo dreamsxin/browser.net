@@ -12,7 +12,7 @@ define([
 		didInsertElement: function () {
 			_this = this;
 			Eotu.PlaySound('ui/sound/login.wav', true);
-			Eotu.SetWindowSize(760, $(document).outerHeight(true));
+			Eotu.SetWindowSize(1140, $(document).outerHeight(true));
 			var sockid;
 			sockid = Eotu.Connect('192.168.1.108', 81, {
 				'connected': function () {
@@ -30,7 +30,9 @@ define([
 						if (obj.status === 'ok') {
 							var items = obj.data;
 							for(var i=0; i<items.length; i++) {
-								_this.contacts.pushObject(items[i]);
+								items[i]["isSelected"] = false;
+								_this.contacts.pushObject(Ember.Object.extend(items[i]).create());
+								Eotu.set('Contacts', _this.contacts);
 							}
 						} else {
 							alert(obj.message);

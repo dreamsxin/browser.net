@@ -3,9 +3,10 @@
 		<div class="panel-heading">
 			联系人
 		</div>
-		<ul class="list-group">
+		<ul class="list-group" style="height: 510px; overflow-y:scroll">
 			{{#each contact in view.contacts}}
-			<li class="list-group-item">
+			{{#if contact.isSelected}}
+			<li class="list-group-item active" {{action 'select' contact}}>
 				<div class="media">
 					<div class="media-left">
 						<img style="max-height: 40px;" src="img/photo.png" />
@@ -16,7 +17,21 @@
 					</div>
 				</div>
 			</li>
+			{{else}}
+			<li class="list-group-item" {{action 'select' contact}}>
+				<div class="media">
+					<div class="media-left">
+						<img style="max-height: 40px;" src="img/photo.png" />
+					</div>
+					<div class="media-body">
+						<h5>{{contact.fullname}} {{contact.phone}}</h5>
+						<small class="text-muted">好友 | 在线</small>
+					</div>
+				</div>
+			</li>
+			{{/if}}
 			{{/each}}
+			<li class="list-group-item"></li>
 		</ul>
 	</div>
 </div>
@@ -25,7 +40,47 @@
 		<div class="panel-heading">
 			历史记录
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" style="height: 454px; overflow-y:scroll">
+			<div class="media">
+				<div class="media-left">
+					<img src="img/photo.png" />
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">朱宗鑫</h4>
+					这里是聊天窗口
+					<small class="text-muted">2015-01-19 8:00</small>
+				</div>
+			</div>
+			<div class="media">
+				<div class="media-left">
+					<img src="img/photo.png" />
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">朱宗鑫</h4>
+					这里是聊天窗口
+					<small class="text-muted">2015-01-19 8:00</small>
+				</div>
+			</div>
+			<div class="media">
+				<div class="media-left">
+					<img src="img/photo.png" />
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">朱宗鑫</h4>
+					这里是聊天窗口
+					<small class="text-muted">2015-01-19 8:00</small>
+				</div>
+			</div>
+			<div class="media">
+				<div class="media-left">
+					<img src="img/photo.png" />
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">朱宗鑫</h4>
+					这里是聊天窗口
+					<small class="text-muted">2015-01-19 8:00</small>
+				</div>
+			</div>
 			<div class="media">
 				<div class="media-left">
 					<img src="img/photo.png" />
