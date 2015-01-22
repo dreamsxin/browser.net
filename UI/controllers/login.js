@@ -16,9 +16,10 @@ define([
 				var _this = this;
 				var json = JSON.stringify(this.get('form'));
 				var sockid;
-				sockid = Eotu.Connect('192.168.1.108', 81, {
+				sockid = Eotu.Connect('192.168.1.126', 60005, {
 					'connected': function () {
-						Eotu.Send("POST /api/local/account/auth HTTP/1.1\r\nHost: www.eotu.com:81\r\nContent-Length: " + json.length + "\r\nConnection: Close\r\n\r\n" + json);
+						alert(1);
+						Eotu.SendMessage(1, 'yili', 'hello');
 					},
 					'change': function (code, status) {
 						//alert(status);
@@ -37,7 +38,7 @@ define([
 							}
 						}
 					},
-					'tcp': true
+					'tcp': false
 				});
 			}
 		}

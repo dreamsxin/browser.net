@@ -19,12 +19,27 @@ define([
 			this.SocketId = this.Socket.connect(host, port, callback);
 			return this.SocketId;
 		},
+		Login: function (username, password) {
+			if (!this.Socket) {
+				this.console.log('未初始化 Socket 对象');
+				return false;
+			}
+			this.SocketId = this.Socket.login(this.SocketId, username, password);
+			return this.SocketId;
+		},
 		Send: function (data) {
 			if (!this.SocketId) {
 				this.console.log('未连接到服务器');
 				return false;
 			}
 			return this.Socket.send(this.SocketId, data);
+		},
+		SendMessage: function (type, toUser, message) {
+			if (!this.SocketId) {
+				this.console.log('未连接到服务器');
+				return false;
+			}
+			return this.Socket.sendMessage(this.SocketId, type, toUser, message);
 		},
 		addEvent: function (name, func) {
 			if (!this.Socket) {
