@@ -7,6 +7,10 @@ define([
 	Ember.TEMPLATES.mainContactsTemplate = Ember.Handlebars.compile(mainContactsTemplate);
 
 	return Ember.View.extend({
+		contacts: Ember.A([
+			Ember.Object.create({fullname: 'fullname', phone: 'phone'}),
+			Ember.Object.create({fullname: 'fullname', phone: 'phone'})
+		]),
 		templateName: 'mainContactsTemplate',
 		didInsertElement: function () {
 			Eotu.PlaySound('ui/sound/login.wav', true);

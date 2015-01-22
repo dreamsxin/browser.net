@@ -43,15 +43,6 @@ define(['handlebars'], function (Handlebars) {
 				this.route('contacts', {path: '/:contact_name'});
 			});
 		});
-		
-		eotuApp.MainContactsRoute = Ember.Route.extend({
-			model: function () {
-				return [{fullname: 'fullname', phone: 'phone'}, {fullname: 'fullname', phone: 'phone'}];
-			},
-			setupController: function (controller, model) {
-				controller.set('model', model);
-			}
-		});
 
 		$(document).ready(function () {
 			Eotu.SetWindowTitle('登录');
