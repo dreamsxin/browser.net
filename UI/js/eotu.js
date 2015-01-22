@@ -1,5 +1,9 @@
-define(function () {
-	var Eotu = {
+define([
+	'ember'
+], function (Ember) {
+	var Eotu = Ember.Object.extend({
+		Profile: null,
+		Contacts: null,
 		Socket: null,
 		SocketId: null,
 		console: console || {
@@ -90,6 +94,6 @@ define(function () {
 		Error: function (json) {
 			alert(json);
 		}
-	};
+	}).create();
 	return Eotu;
 });

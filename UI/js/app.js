@@ -1,19 +1,17 @@
 define([
 	'ember',
 	'controllers/login',
+	'controllers/main/contacts',
 	'views/login',
+	'views/main/contacts',
 	'eotu'
-], function (Ember, LoginController, LoginView, Eotu) {
+], function (Ember, LoginController, MainContactsController, LoginView, MainContactsView, Eotu) {
 	return Ember.Application.extend({
 		name: "App",
 		LoginController: LoginController,
 		LoginView: LoginView,
-		MainContactsView: Ember.View.extend({
-			didInsertElement: function () {
-				Eotu.PlaySound('ui/sound/login.wav', true);
-				Eotu.SetWindowSize(760, $(document).outerHeight(true));
-			}
-		}),
+		MainContactsController: MainContactsController,
+		MainContactsView: MainContactsView,
 		ApplicationView: Ember.View.extend({
 			templateName: 'application'
 		}),

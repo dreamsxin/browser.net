@@ -1,0 +1,69 @@
+<div class="col-xs-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			联系人
+		</div>
+		<ul class="list-group">
+			{{#each contact in model}}
+			<li class="list-group-item">
+				<div class="media">
+					<div class="media-left">
+						<img style="max-height: 40px;" src="img/photo.png" />
+					</div>
+					<div class="media-body">
+						<h5>{{contact.fullname}} {{contact.phone}}</h5>
+						<small class="text-muted">好友 | 在线</small>
+					</div>
+				</div>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+</div>
+<div class="col-xs-8">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			历史记录
+		</div>
+		<div class="panel-body">
+			<div class="media">
+				<div class="media-left">
+					<img src="img/photo.png" />
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">朱宗鑫</h4>
+					这里是聊天窗口
+					<small class="text-muted">2015-01-19 8:00</small>
+				</div>
+			</div>
+			<div class="media">
+				<div class="media-left">
+					<img src="img/photo.png" />
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">朱宗鑫</h4>
+					这里是聊天窗口
+					<small class="text-muted">2015-01-19 9:00</small>
+				</div>
+			</div>
+			<div class="media">
+				<div class="media-left">
+					<img src="img/photo.png" />
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">朱宗鑫</h4>
+					这里是聊天窗口
+					<small class="text-muted">2015-01-19 10:00</small>
+				</div>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="输入信息" />
+				<span class="input-group-btn">
+					<button class="btn btn-info" type="button">发送</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
