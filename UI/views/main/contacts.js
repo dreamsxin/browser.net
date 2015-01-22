@@ -11,12 +11,16 @@ define([
 		templateName: 'mainContactsTemplate',
 		didInsertElement: function () {
 			_this = this;
+			if (!Eotu.get('Profile.user_id')) {
+				_this.get('controller').transitionToRoute('login');
+				return;
+			}
 			Eotu.PlaySound('ui/sound/login.wav', true);
 			Eotu.SetWindowSize(1140, $(document).outerHeight(true));
 			var sockid;
 			sockid = Eotu.Connect('192.168.1.108', 81, {
 				'connected': function () {
-					Eotu.Send("POST /api/local/contact/list/9 HTTP/1.1\r\nHost: www.eotu.com:81\r\nConnection: Close\r\n\r\n");
+					Eotu.Send("POST /api/local/contact/list/"+Eotu.get('Profile.user_id')+" HTTP/1.1\r\nHost: www.eotu.com:81\r\nConnection: Close\r\n\r\n");
 				},
 				'change': function (code, status) {
 					//alert(status);
@@ -32,8 +36,8 @@ define([
 							for(var i=0; i<items.length; i++) {
 								items[i]["isSelected"] = false;
 								_this.contacts.pushObject(Ember.Object.extend(items[i]).create());
-								Eotu.set('Contacts', _this.contacts);
 							}
+							Eotu.set('Contacts', _this.contacts);
 						} else {
 							alert(obj.message);
 						}

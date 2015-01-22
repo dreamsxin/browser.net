@@ -30,7 +30,7 @@ define([
 						if (data.length > 0) {
 							var obj = jQuery.parseJSON(data);
 							if (obj.status === 'ok') {
-								Eotu.Profile = obj.data;
+								Eotu.set('Profile', Ember.Object.extend(obj.data).create());
 								_this.transitionToRoute('/main/contacts');
 							} else {
 								alert(obj.message);
