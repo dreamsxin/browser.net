@@ -3062,7 +3062,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EotuClient"
         "ProductCode" = "8:{50CDC9E5-4DFB-4EE3-8B3B-D65159C9DCEB}"
-        "PackageCode" = "8:{F3FB5AB8-F33B-41A7-BBA0-072EEF232FAF}"
+        "PackageCode" = "8:{98A87705-258F-4315-9F48-47D36D61C50B}"
         "UpgradeCode" = "8:{0FFEA95F-19F3-4E7F-86FC-ED8DEF418DF3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
