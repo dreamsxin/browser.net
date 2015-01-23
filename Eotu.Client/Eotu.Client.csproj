@@ -51,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -76,6 +77,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseWindow.cs" />
     <Page Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,9 +85,14 @@
     <Compile Include="AppWindow.xaml.cs">
       <DependentUpon>AppWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BlankWindow.xaml.cs">
+      <DependentUpon>BlankWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Browser\BrowserMessage.cs" />
     <Compile Include="Browser\MyCustomPromptService.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Event\Message.cs" />
+    <Compile Include="Event\MessageEventArgs.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Util\ExecutionEnvironment.cs" />
     <Compile Include="SplashWindow.xaml.cs">
@@ -99,6 +106,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="BlankWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SplashWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

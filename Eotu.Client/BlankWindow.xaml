@@ -1,0 +1,13 @@
+﻿<src:BaseWindow x:Class="Eotu.Client.BlankWindow"
+        xmlns:src="clr-namespace:Eotu.Client"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gecko="clr-namespace:Gecko;assembly=Geckofx-Wpf"
+        Title="BlankWindow" Height="300" Width="300"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+
+    <DockPanel>
+        <gecko:GeckoWebBrowser x:Name="browser" GeckoInitCompleted="browser_OnInitCompleted" />
+    </DockPanel>
+</src:BaseWindow>

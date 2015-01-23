@@ -1,4 +1,5 @@
-﻿<Window x:Class="Eotu.Client.AppWindow"
+﻿<src:BaseWindow x:Class="Eotu.Client.AppWindow"
+        xmlns:src="clr-namespace:Eotu.Client"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:gecko="clr-namespace:Gecko;assembly=Geckofx-Wpf" 
@@ -9,4 +10,4 @@
     <DockPanel>
             <gecko:GeckoWebBrowser x:Name="browser" GeckoInitCompleted="browser_OnInitCompleted" />
     </DockPanel>
-</Window>
+</src:BaseWindow>

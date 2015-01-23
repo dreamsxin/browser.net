@@ -63,6 +63,9 @@ define([
 			CanResize: 'CanResize',
 			CanResizeWithGrip: 'CanResizeWithGrip'
 		},
+		CreateWindow: function (url, local) {
+			this.Call('CreateWindow', {url: url, local: local});
+		},
 		AjaxGet: function (url) {
 			this.Call('AjaxGet', {url: url});
 		},

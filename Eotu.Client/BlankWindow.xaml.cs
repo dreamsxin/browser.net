@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,47 +11,48 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Net;
-using Newtonsoft.Json;
 using Eotu.Client.Browser;
 using Eotu.Client.Util;
-using Gecko;
-using System.Windows.Interop;
-using System.Runtime.InteropServices;
+using Newtonsoft.Json;
+using System.Net;
 using Eotu.Client.Event;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace Eotu.Client
 {
     /// <summary>
-    /// AppWindow.xaml 的交互逻辑
+    /// BlankWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class AppWindow : BaseWindow
+    public partial class BlankWindow : BaseWindow
     {
         private bool browserInitCompleted;
-        public AppWindow()
+        private string page_json = null;
+        public BlankWindow()
         {
             InitializeComponent();
-            this.SourceInitialized += new EventHandler(AppWindow_SourceInitialized);
-            new SplashWindow().ShowDialog();
         }
 
-        void AppWindow_SourceInitialized(object sender, EventArgs e)
+        public BlankWindow(BaseWindow win, string json = null)
+            : base(win)
         {
-            IntPtr hwnd = new WindowInteropHelper(this).Handle;
-            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));
+            InitializeComponent();
+
+            page_json = json;
+
+            win.SendMessage += new RoutedEventHandler(win_SendMessage);
         }
 
-        IntPtr WndProc(IntPtr hwnd, int type, IntPtr wParam, IntPtr lParam, ref bool handled)
+        void win_SendMessage(object sender, RoutedEventArgs e)
         {
-            switch (type)
+            MessageEventArgs arg = e as MessageEventArgs;
+            if (arg.type == Message.TYPE_CALL_METHOD)
             {
-                case Eotu.Client.App.WM_COPYDATA:
-                    App.COPYDATASTRUCT cp = (App.COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(App.COPYDATASTRUCT));
-                    MessageBox.Show(cp.lpData);
-                    break;
+                MethodInfo mm = this.GetType().GetMethod(arg.method);
+                object obj = mm.Invoke(this, new object[] { arg.param });
+            } else {
+                MessageBox.Show(arg.body);
             }
-            return IntPtr.Zero;
         }
 
         private void browser_OnInitCompleted(object sender, EventArgs e)
@@ -69,11 +71,15 @@ namespace Eotu.Client
                 browser.AddMessageEventListener("SetResizeMode", ((string json) => SetResizeMode(json)));
                 browser.AddMessageEventListener("SetWindowSize", ((string json) => SetWindowSize(json)));
                 browser.AddMessageEventListener("Navigate", ((string json) => Navigate(json)));
-                string path = Path.Combine(ExecutionEnvironment.DirectoryOfExecutingAssembly, "UI/index.html");
-                path = Path.GetFullPath(path);
-                var uri = new Uri(path);
-                browser.Navigate(uri.AbsoluteUri);
                 browser.WebBrowserFocus.Activate();
+
+                if (page_json != null) {
+                    Navigate(page_json);
+                }
+
+                JObject data = new JObject();
+                data["type"] = Message.TYPE_INITCOMPLETED;
+                OnSendMessage(MessageEventArgs.Create(SendMessageEvent, data.ToString()));
             }
             browserInitCompleted = true;
         }
@@ -81,24 +87,9 @@ namespace Eotu.Client
         public void CreateWindow(string json)
         {
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
-            if (message.url != null)
-            {
-                BlankWindow win = new BlankWindow(this, json);
-                win.SendMessage += new RoutedEventHandler(win_SendMessage);
-                win.Show();
-            }
-        }
 
-        void win_SendMessage(object sender, RoutedEventArgs e)
-        {
-            MessageEventArgs arg = e as MessageEventArgs;
-            if (arg.type == Message.TYPE_INITCOMPLETED)
-            {
-            }
-            else
-            {
-                MessageBox.Show(arg.body);
-            }
+            BlankWindow window = new BlankWindow(this);
+            window.Show();
         }
 
         public void ShowMessage(string json)
@@ -180,16 +171,26 @@ namespace Eotu.Client
         public void Navigate(string json)
         {
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
-            browser.Navigate(message.url);
+
+            string url = message.url;
+            if (message.local)
+            {
+                url = Path.Combine(ExecutionEnvironment.DirectoryOfExecutingAssembly, url);
+                url = Path.GetFullPath(url);
+            }
+            var uri = new Uri(url);
+            browser.Navigate(uri.AbsoluteUri);
+            browser.WebBrowserFocus.Activate();
         }
 
-        public void AjaxGet(string json) {
+        public void AjaxGet(string json)
+        {
             BrowserMessage message = JsonConvert.DeserializeObject<BrowserMessage>(json);
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(message.url);
-			request.Method = "GET";
+            request.Method = "GET";
 
-			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-			Stream receiveStream = response.GetResponseStream();
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream receiveStream = response.GetResponseStream();
 
             StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
             string data = readStream.ReadToEnd().Replace("'", "\\'");
@@ -203,9 +204,9 @@ namespace Eotu.Client
             {
                 try
                 {
-                    js.EvaluateScript(script, (nsISupports)browser.Window.DomWindow, out outString);
+                    js.EvaluateScript(script, (Gecko.nsISupports)browser.Window.DomWindow, out outString);
                 }
-                catch (GeckoJavaScriptException ex)
+                catch (Gecko.GeckoJavaScriptException ex)
                 {
                     System.Console.WriteLine(ex.Message);
                 }
