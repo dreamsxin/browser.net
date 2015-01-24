@@ -18,25 +18,21 @@ define([
 				var sockid;
 				sockid = Eotu.Connect('192.168.1.126', 60005, {
 					'connected': function () {
-						alert(1);
-						Eotu.SendMessage(1, 'yili', 'hello');
+						Eotu.Login('dreamsxin@qq.com', 'aaa111');
+					},
+					'authSuccess': function (data) {
+						alert('登录成功' + data);
+						Eotu.set('Profile', Ember.Object.extend(obj.data).create());
+						_this.transitionToRoute('/main/contacts');
+					},
+					'authFail': function () {
+						alert('登录失败');
 					},
 					'change': function (code, status) {
 						//alert(status);
 					},
 					'receive': function (data) {
-						if (data.indexOf("\r\n\r\n") >= 0) {
-							data = data.substring(data.indexOf("\r\n\r\n") + 4, data.length);
-						}
-						if (data.length > 0) {
-							var obj = jQuery.parseJSON(data);
-							if (obj.status === 'ok') {
-								Eotu.set('Profile', Ember.Object.extend(obj.data).create());
-								_this.transitionToRoute('/main/contacts');
-							} else {
-								alert(obj.message);
-							}
-						}
+						alert(data);
 					},
 					'tcp': false
 				});

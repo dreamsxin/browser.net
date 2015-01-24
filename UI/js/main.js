@@ -53,7 +53,7 @@ define(['handlebars'], function (Handlebars) {
 			if (Eotu.Socket.valid) {
 				Eotu.console.log('EotuSock 插件加载成功');
 			}
-			Eotu.CreateWindow('ui/chat.html', true);
+			//Eotu.CreateWindow('ui/chat.html', true);
 		});
 	});
 });
