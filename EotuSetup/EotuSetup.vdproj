@@ -27,13 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0818B0015A484DE3BDB43427EC38E347"
+        "MsmKey" = "8:_0A2F22EAF30644FBB58C30F48FFBEC30"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0A2F22EAF30644FBB58C30F48FFBEC30"
+        "MsmKey" = "8:_0B735A996BF74B53945F8743DD94718B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -136,12 +136,6 @@
         "Entry"
         {
         "MsmKey" = "8:_25B93A1509D548CA8F24332DA9CBB8B2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_29C3A2194B684A2D80657A99177D9FBC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -280,6 +274,12 @@
         "Entry"
         {
         "MsmKey" = "8:_55E2A22ECC0D4AD3BABEE0E463BCA619"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5891A8FB598A4A7BB9AFE560867C77E4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -836,12 +836,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0818B0015A484DE3BDB43427EC38E347"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0A2F22EAF30644FBB58C30F48FFBEC30"
             {
-            "SourcePath" = "8:..\\PutXulRunnerFolderHere\\xulrunner\\plugins\\RakNet.dll"
-            "TargetName" = "8:RakNet.dll"
+            "SourcePath" = "8:..\\PutXulRunnerFolderHere\\xulrunner\\dictionaries\\en-US.dic"
+            "TargetName" = "8:en-US.dic"
             "Tag" = "8:"
-            "Folder" = "8:_14EC55493CDB4FBEB65BD9C612223FDD"
+            "Folder" = "8:_5F11EE8B8BF24A28AC8082BDB913E456"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -856,12 +856,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0A2F22EAF30644FBB58C30F48FFBEC30"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0B735A996BF74B53945F8743DD94718B"
             {
-            "SourcePath" = "8:..\\PutXulRunnerFolderHere\\xulrunner\\dictionaries\\en-US.dic"
-            "TargetName" = "8:en-US.dic"
+            "SourcePath" = "8:..\\PutXulRunnerFolderHere\\xulrunner\\plugins\\npEotuSocket.dll"
+            "TargetName" = "8:npEotuSocket.dll"
             "Tag" = "8:"
-            "Folder" = "8:_5F11EE8B8BF24A28AC8082BDB913E456"
+            "Folder" = "8:_14EC55493CDB4FBEB65BD9C612223FDD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1182,26 +1182,6 @@
             "TargetName" = "8:jquery-1.11.2.js"
             "Tag" = "8:"
             "Folder" = "8:_0610DA03ED994D5D971653A9237BD31B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_29C3A2194B684A2D80657A99177D9FBC"
-            {
-            "SourcePath" = "8:..\\PutXulRunnerFolderHere\\xulrunner\\plugins\\npEotuSocket.dll"
-            "TargetName" = "8:npEotuSocket.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_14EC55493CDB4FBEB65BD9C612223FDD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1613,6 +1593,26 @@
             "TargetName" = "8:login.js"
             "Tag" = "8:"
             "Folder" = "8:_1A794AE36544482A9572E6F7168DFDD6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5891A8FB598A4A7BB9AFE560867C77E4"
+            {
+            "SourcePath" = "8:..\\PutXulRunnerFolderHere\\xulrunner\\plugins\\RakNet.dll"
+            "TargetName" = "8:RakNet.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_14EC55493CDB4FBEB65BD9C612223FDD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3062,7 +3062,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EotuClient"
         "ProductCode" = "8:{50CDC9E5-4DFB-4EE3-8B3B-D65159C9DCEB}"
-        "PackageCode" = "8:{98A87705-258F-4315-9F48-47D36D61C50B}"
+        "PackageCode" = "8:{31073D0D-42D4-4E31-A302-28458D67DA96}"
         "UpgradeCode" = "8:{0FFEA95F-19F3-4E7F-86FC-ED8DEF418DF3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
