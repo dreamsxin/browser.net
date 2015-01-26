@@ -41,7 +41,7 @@
 		<div class="panel-heading">
 			与 {{contact.fullname}} 的聊天记录	
 		</div>
-		<div class="panel-body" style="height: 454px; overflow-y:scroll">
+		<div id="message_list" class="panel-body" style="height: 454px; overflow-y:scroll">
 			{{#each message in messages}}
 			<div class="media">
 				<div class="media-left">
@@ -58,9 +58,9 @@
 		<div class="panel-footer">
 			<div class="form-group">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="输入信息" />
+					<input id="message_body" type="text" class="form-control" placeholder="输入信息" />
 					<span class="input-group-btn">
-						<button class="btn btn-info" type="button">发送</button>
+						<button class="btn btn-info" type="button" {{action 'send' contact}}>发送</button>
 					</span>
 				</div>
 			</div>

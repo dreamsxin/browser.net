@@ -26,6 +26,7 @@ require.config({
 		}
 	}
 });
+
 define(['handlebars'], function (Handlebars) {
 	window.Handlebars = Handlebars;
 
@@ -33,7 +34,7 @@ define(['handlebars'], function (Handlebars) {
 		'app',
 		'eotu'
 	], function (App, Eotu) {
-		var eotuApp = App.create();
+		eotuApp = App.create();
 		eotuApp.Router.map(function () {
 			this.route("login", {path: "/"});
 			this.route("register");

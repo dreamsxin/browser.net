@@ -20,7 +20,7 @@ define([
 				sockid = Eotu.Connect('192.168.1.126', 60005, {
 					connected: function () {
 						Eotu.console.log('connected');
-						Eotu.Login('dreamsxin@qq.com', 'aaa111');
+						Eotu.Login(_this.get('form.username'), _this.get('form.password'));
 					},
 					authSuccess: function (data) {
 						Eotu.console.log('authSuccess');
@@ -32,13 +32,18 @@ define([
 						Eotu.console.log('authFail');
 					},
 					textMessage: function (data) {
-						alert('文本消息' + data);
+						var item = JSON.parse(data);
+						Eotu.Messages.pushObject(Ember.Object.extend(item).create());
 					},
 					message: function (type, data) {
 						alert('消息'+type+data);
 					},
 					onlineNotify: function (data) {
-						alert('在线提醒' + data);
+						var items = JSON.parse(data);
+						Eotu.console.log(items);
+						for(var i=0; i<items.length; i++) {
+							Eotu.Onlines.pushObject(Ember.Object.extend(items[i]).create());
+						}
 					},
 					notify: function (type, data) {
 						alert('提醒'+type+data);

@@ -18,33 +18,21 @@ define([
 			}
 			Eotu.PlaySound('ui/sound/login.wav', true);
 			Eotu.SetWindowSize(1140, $(document).outerHeight(true));
-			var sockid;
-			sockid = Eotu.Connect('192.168.1.108', 81, {
-				'connected': function () {
-					Eotu.Send("POST /api/local/contact/list/"+Eotu.get('Profile.user_id')+" HTTP/1.1\r\nHost: www.eotu.com:81\r\nConnection: Close\r\n\r\n");
-				},
-				'change': function (code, status) {
-					//alert(status);
-				},
-				'receive': function (data) {
-					if (data.indexOf("\r\n\r\n") >= 0) {
-						data = data.substring(data.indexOf("\r\n\r\n") + 4, data.length);
-					}
-					if (data.length > 0) {
-						var obj = jQuery.parseJSON(data);
-						if (obj.status === 'ok') {
-							var items = obj.data;
-							for(var i=0; i<items.length; i++) {
-								items[i]["isSelected"] = false;
-								_this.contacts.pushObject(Ember.Object.extend(items[i]).create());
-							}
-							Eotu.set('Contacts', _this.contacts);
-						} else {
-							alert(obj.message);
+			$.ajax({
+				url: 'http://www.eotu.com:81/api/local/contact/list/' + Eotu.get('Profile.user_id'),
+				success: function (obj) {
+					if (obj.status === 'ok') {
+						var items = obj.data;
+						for (var i = 0; i < items.length; i++) {
+							items[i]["isSelected"] = false;
+							_this.contacts.pushObject(Ember.Object.extend(items[i]).create());
 						}
+						Eotu.set('Contacts', _this.contacts);
+					} else {
+						alert(obj.message);
 					}
 				},
-				'tcp': true
+				dataType: 'json'
 			});
 		}
 	});

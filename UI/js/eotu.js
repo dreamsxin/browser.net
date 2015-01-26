@@ -4,6 +4,8 @@ define([
 	var Eotu = Ember.Object.extend({
 		Profile: null,
 		Contacts: null,
+		Onlines: Ember.A([]),
+		Messages: Ember.A([]),
 		Socket: null,
 		SocketId: null,
 		console: console || {
@@ -17,6 +19,7 @@ define([
 				return false;
 			}
 			this.SocketId = this.Socket.connect(host, port, callback);
+			this.console.log("SocketId", this.SocketId);
 			return this.SocketId;
 		},
 		Login: function (username, password) {
@@ -24,7 +27,9 @@ define([
 				this.console.log('未初始化 Socket 对象');
 				return false;
 			}
-			this.SocketId = this.Socket.login(this.SocketId, JSON.stringify({username: username, password: password}));
+			
+			this.console.log("SocketId", this.SocketId, username, password);
+			this.Socket.login(this.SocketId, JSON.stringify({username: username, password: password}));
 			return this.SocketId;
 		},
 		Send: function (data) {
@@ -39,6 +44,7 @@ define([
 				this.console.log('未连接到服务器');
 				return false;
 			}
+			this.console.log("SocketId", this.SocketId, to, message);
 			return this.Socket.sendMessage(this.SocketId, JSON.stringify({to: to, message: message}));
 		},
 		addEvent: function (name, func) {
