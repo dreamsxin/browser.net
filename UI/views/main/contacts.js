@@ -12,6 +12,7 @@ define([
 		didInsertElement: function () {
 			_this = this;
 			if (!Eotu.get('Profile.user_id')) {
+				Eotu.console.log('Eotu.Profile.user_id not found');
 				_this.get('controller').transitionToRoute('login');
 				return;
 			}

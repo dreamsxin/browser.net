@@ -16,25 +16,40 @@ define([
 				var _this = this;
 				var json = JSON.stringify(this.get('form'));
 				var sockid;
+				Eotu.addEvent('Debug', function(data){alert(data);});
 				sockid = Eotu.Connect('192.168.1.126', 60005, {
-					'connected': function () {
+					connected: function () {
+						Eotu.console.log('connected');
 						Eotu.Login('dreamsxin@qq.com', 'aaa111');
 					},
-					'authSuccess': function (data) {
-						alert('登录成功' + data);
-						Eotu.set('Profile', Ember.Object.extend(obj.data).create());
+					authSuccess: function (data) {
+						Eotu.console.log('authSuccess');
+						Eotu.set('Profile', Ember.Object.extend(JSON.parse(data).data).create());
+						Eotu.console.log(data);
 						_this.transitionToRoute('/main/contacts');
 					},
-					'authFail': function () {
-						alert('登录失败');
+					authFail: function () {
+						Eotu.console.log('authFail');
 					},
-					'change': function (code, status) {
-						//alert(status);
+					textMessage: function (data) {
+						alert('文本消息' + data);
 					},
-					'receive': function (data) {
-						alert(data);
+					message: function (type, data) {
+						alert('消息'+type+data);
 					},
-					'tcp': false
+					onlineNotify: function (data) {
+						alert('在线提醒' + data);
+					},
+					notify: function (type, data) {
+						alert('提醒'+type+data);
+					},
+					change: function (code, status) {
+						Eotu.console.log(status);
+					},
+					receive: function (data) {
+						Eotu.console.log(data);
+					},
+					tcp: false
 				});
 			}
 		}

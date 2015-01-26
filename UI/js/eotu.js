@@ -24,7 +24,7 @@ define([
 				this.console.log('未初始化 Socket 对象');
 				return false;
 			}
-			this.SocketId = this.Socket.login(this.SocketId, {username: username, password: password});
+			this.SocketId = this.Socket.login(this.SocketId, JSON.stringify({username: username, password: password}));
 			return this.SocketId;
 		},
 		Send: function (data) {
@@ -39,7 +39,7 @@ define([
 				this.console.log('未连接到服务器');
 				return false;
 			}
-			return this.Socket.sendMessage(this.SocketId, {to: to, message: message});
+			return this.Socket.sendMessage(this.SocketId, JSON.stringify({to: to, message: message}));
 		},
 		addEvent: function (name, func) {
 			if (!this.Socket) {

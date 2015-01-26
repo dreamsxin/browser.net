@@ -160,13 +160,13 @@
         "Entry"
         {
         "MsmKey" = "8:_2D48018A068A7559A5FF43E344321584"
-        "OwnerKey" = "8:_EF8FF310D555259863E2DEE968BC110B"
+        "OwnerKey" = "8:_C2E0AE858ADE4B039C2441646D369E38"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_2D48018A068A7559A5FF43E344321584"
-        "OwnerKey" = "8:_C2E0AE858ADE4B039C2441646D369E38"
+        "OwnerKey" = "8:_EF8FF310D555259863E2DEE968BC110B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -658,25 +658,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2D48018A068A7559A5FF43E344321584"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EF8FF310D555259863E2DEE968BC110B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_60BE501E1CC7598D70A8CF036E3B59B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5409AFE70A8A49D08EFAC723C0C27293"
+        "OwnerKey" = "8:_C4B37F17BDB5417C95FC221560140524"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -688,7 +670,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C4B37F17BDB5417C95FC221560140524"
+        "OwnerKey" = "8:_5409AFE70A8A49D08EFAC723C0C27293"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_60BE501E1CC7598D70A8CF036E3B59B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EF8FF310D555259863E2DEE968BC110B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2D48018A068A7559A5FF43E344321584"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1243,6 +1243,11 @@
             "AssemblyAsmDisplayName" = "8:Geckofx-Core, Version=29.0.17.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_2D48018A068A7559A5FF43E344321584"
+                    {
+                    "Name" = "8:Geckofx-Core.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Geckofx-Core.dll"
             "TargetName" = "8:"
@@ -1689,6 +1694,11 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_60BE501E1CC7598D70A8CF036E3B59B2"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -2635,6 +2645,11 @@
             "AssemblyAsmDisplayName" = "8:Geckofx-Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_EF8FF310D555259863E2DEE968BC110B"
+                    {
+                    "Name" = "8:Geckofx-Wpf.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Geckofx-Wpf.dll"
             "TargetName" = "8:"
@@ -3047,7 +3062,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EotuClient"
         "ProductCode" = "8:{50CDC9E5-4DFB-4EE3-8B3B-D65159C9DCEB}"
-        "PackageCode" = "8:{31073D0D-42D4-4E31-A302-28458D67DA96}"
+        "PackageCode" = "8:{664E342F-44E8-4E9B-8368-1E0BB6F4AEEA}"
         "UpgradeCode" = "8:{0FFEA95F-19F3-4E7F-86FC-ED8DEF418DF3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
