@@ -18,22 +18,7 @@ define([
 			}
 			Eotu.PlaySound('ui/sound/login.wav', true);
 			Eotu.SetWindowSize(1140, $(document).outerHeight(true));
-			$.ajax({
-				url: 'http://www.eotu.com:81/api/local/contact/list/' + Eotu.get('Profile.user_id'),
-				success: function (obj) {
-					if (obj.status === 'ok') {
-						var items = obj.data;
-						for (var i = 0; i < items.length; i++) {
-							items[i]["isSelected"] = false;
-							_this.contacts.pushObject(Ember.Object.extend(items[i]).create());
-						}
-						Eotu.set('Contacts', _this.contacts);
-					} else {
-						alert(obj.message);
-					}
-				},
-				dataType: 'json'
-			});
+			_this.set('contacts',Eotu.Onlines);
 		}
 	});
 });

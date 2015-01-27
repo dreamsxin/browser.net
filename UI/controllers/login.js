@@ -16,7 +16,9 @@ define([
 				var _this = this;
 				var json = JSON.stringify(this.get('form'));
 				var sockid;
-				Eotu.addEvent('Debug', function(data){alert(data);});
+				Eotu.addEvent('Debug', function (data) {
+					alert(data);
+				});
 				sockid = Eotu.Connect('192.168.1.126', 60005, {
 					connected: function () {
 						Eotu.console.log('connected');
@@ -32,21 +34,49 @@ define([
 						Eotu.console.log('authFail');
 					},
 					textMessage: function (data) {
-						var item = JSON.parse(data);
-						Eotu.Messages.pushObject(Ember.Object.extend(item).create());
+						var message = JSON.parse(data);
+						Eotu.console.log(message);
+						Eotu.console.log(Eotu.Onlines);
+						var found = false;
+						Eotu.Onlines.forEach(function (item) {
+							if (message.from === item.uid) {
+								found = true;
+								message.from = item.fullname;
+								Eotu.Messages.pushObject(Ember.Object.extend(message).create());
+							}
+						});
+						if (!found) {
+							Eotu.Messages.pushObject(Ember.Object.extend(message).create());
+						}
+						Ember.run.later((function () {
+							if ($('#message_list').length > 0) {
+								$('#message_list').scrollTop($('#message_list')[0].scrollHeight + 60);
+							}
+						}), 100);
 					},
 					message: function (type, data) {
-						alert('消息'+type+data);
+						alert('消息' + type + data);
 					},
 					onlineNotify: function (data) {
 						var items = JSON.parse(data);
-						Eotu.console.log(items);
-						for(var i=0; i<items.length; i++) {
-							Eotu.Onlines.pushObject(Ember.Object.extend(items[i]).create());
+						if (items) {
+							Eotu.console.log("online", items);
+							for (var i = 0; i < items.length; i++) {
+								Eotu.Onlines.forEach(function (item) {
+									if (item.guid === items[i].guid) {
+										Eotu.Onlines.removeObject(item);
+								Eotu.console.log("删除");
+									}
+								});
+								items[i]["online"] = items[i].presence > 0 ? true : false;
+								Eotu.Onlines.pushObject(Ember.Object.extend(items[i]).create());
+								
+							}
+							Eotu.console.log(Eotu.Onlines);
 						}
 					},
 					notify: function (type, data) {
-						alert('提醒'+type+data);
+						alert('提醒' + type + data);
 					},
 					change: function (code, status) {
 						Eotu.console.log(status);

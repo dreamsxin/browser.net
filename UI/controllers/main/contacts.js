@@ -8,26 +8,33 @@ define([
 		messages: null,
 		actions: {
 			select: function (contact) {
-				Eotu.Contacts.forEach(function (item) {
+				Eotu.Onlines.forEach(function (item) {
 					item.set("isSelected", false);
 				});
 				contact.set("isSelected", true);
 				this.set('contact', contact);
 				this.set('messages', Eotu.Messages);
-				if ($('#message_list').length > 0) {
-					$('#message_list').scrollTop($('#message_list').scrollHeight + 60);
-				}
 			},
 			send: function (contact) {
+				Eotu.console.log("给" + contact.fullname + " 发送消息");
+				var found = false;
 				Eotu.Onlines.forEach(function (item) {
-					Eotu.console.log(contact.fullname, item.fullname);
-					if (contact.fullname === item.fullname) {
-						Eotu.Messages.pushObject(Ember.Object.extend({to: item.fullname, message: $('#message_body').val()}).create());
+					if (contact.guid === item.guid) {
+						found = true;
+						Eotu.Messages.pushObject(Ember.Object.extend({from: Eotu.Profile.fullname, to: item.fullname, message: $('#message_body').val()}).create());
+						Ember.run.later((function () {
+							if ($('#message_list').length > 0) {
+								$('#message_list').scrollTop($('#message_list')[0].scrollHeight + 60);
+							}
+						}), 100);
 						Eotu.SendMessage(item.uid, $('#message_body').val());
 						$('#message_body').val('');
 						return;
 					}
 				});
+				if (!found) {
+					Eotu.console.log(contact.fullname + " 不在线");
+				}
 			}
 		}
 	});

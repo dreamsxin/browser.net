@@ -6,14 +6,14 @@
 		<ul class="list-group" style="height: 510px; overflow-y:scroll">
 			{{#each contact in view.contacts}}
 			{{#if contact.isSelected}}
-			<li class="list-group-item active" {{action 'select' contact}}>
+			<li class="list-group-item active">
 				<div class="media">
 					<div class="media-left">
 						<img style="max-height: 40px;" src="img/photo.png" />
 					</div>
 					<div class="media-body">
 						<h5>{{contact.fullname}} {{contact.phone}}</h5>
-						<small class="text-muted">好友 | 在线</small>
+						好友 | {{#if contact.online}}<small class="text-primary">在线</small>{{else}}<small class="text-muted">不在线</small>{{/if}}
 					</div>
 				</div>
 			</li>
@@ -25,7 +25,7 @@
 					</div>
 					<div class="media-body">
 						<h5>{{contact.fullname}} {{contact.phone}}</h5>
-						<small class="text-muted">好友 | 在线</small>
+						好友 | {{#if contact.online}}<small class="text-primary">在线</small>{{else}}<small class="text-muted">不在线</small>{{/if}}
 					</div>
 				</div>
 			</li>
