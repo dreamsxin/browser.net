@@ -85,10 +85,15 @@ define([
 						alert('提醒' + type + data);
 					},
 					change: function (code, status) {
-						Eotu.console.log(status);
+						Eotu.console.log("change", status);
+						if (status === "ID_CONNECTION_LOST") {
+							_this.transitionToRoute('/');
+						} else if (status === "ID_CONNECTION_ATTEMPT_FAILED") {
+							alert('无法连接服务器');
+						}
 					},
 					receive: function (data) {
-						Eotu.console.log(data);
+						Eotu.console.log("receive", data);
 					},
 					tcp: false
 				});
