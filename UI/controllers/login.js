@@ -19,7 +19,7 @@ define([
 				Eotu.addEvent('Debug', function (data) {
 					alert(data);
 				});
-				sockid = Eotu.Connect('192.168.1.126', 60005, {
+				sockid = Eotu.Connect('192.168.1.108', 60005, {
 					connected: function () {
 						Eotu.console.log('connected');
 						Eotu.Login(_this.get('form.username'), _this.get('form.password'));
@@ -42,6 +42,7 @@ define([
 							if (message.from === item.uid) {
 								found = true;
 								message.from = item.fullname;
+								message.to = Eotu.Profile.fullname;
 								Eotu.Messages.pushObject(Ember.Object.extend(message).create());
 							}
 						});
@@ -65,12 +66,17 @@ define([
 								Eotu.Onlines.forEach(function (item) {
 									if (item.guid === items[i].guid) {
 										Eotu.Onlines.removeObject(item);
-								Eotu.console.log("删除");
+										Eotu.console.log("删除");
 									}
 								});
 								items[i]["online"] = items[i].presence > 0 ? true : false;
-								Eotu.Onlines.pushObject(Ember.Object.extend(items[i]).create());
-								
+								var item = Ember.Object.extend(items[i]).create();
+								Eotu.Onlines.pushObject(item);
+								if (!items[i]["online"]) {
+									Ember.run.later((function () {
+										Eotu.Onlines.removeObject(item);
+									}), 1000);
+								}
 							}
 							Eotu.console.log(Eotu.Onlines);
 						}

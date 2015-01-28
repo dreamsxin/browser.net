@@ -7,7 +7,8 @@ define([
 	Ember.TEMPLATES.mainContactsTemplate = Ember.Handlebars.compile(mainContactsTemplate);
 
 	return Ember.View.extend({
-		contacts: Ember.A([]),
+		contacts: null,
+		messages: null,
 		templateName: 'mainContactsTemplate',
 		didInsertElement: function () {
 			_this = this;
@@ -19,6 +20,7 @@ define([
 			Eotu.PlaySound('ui/sound/login.wav', true);
 			Eotu.SetWindowSize(1140, $(document).outerHeight(true));
 			_this.set('contacts',Eotu.Onlines);
+			_this.set('messages', Eotu.Messages);
 		}
 	});
 });

@@ -35,20 +35,19 @@
 		</ul>
 	</div>
 </div>
-{{#if contact}}
 <div class="col-xs-8">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			与 {{contact.fullname}} 的聊天记录	
 		</div>
 		<div id="message_list" class="panel-body" style="height: 454px; overflow-y:scroll">
-			{{#each message in messages}}
+			{{#each message in view.messages}}
 			<div class="media">
 				<div class="media-left">
 					<img src="img/photo.png" />
 				</div>
 				<div class="media-body">
-					<h4 class="media-heading">{{message.from}}</h4>
+					<h4 class="media-heading">{{message.from}} 对{{message.to}} 说</h4>
 					{{message.message}}
 					<small class="text-muted">{{message.date}}</small>
 				</div>
@@ -67,4 +66,3 @@
 		</div>
 	</div>
 </div>
-{{/if}}	

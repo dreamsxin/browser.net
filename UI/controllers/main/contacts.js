@@ -5,7 +5,6 @@ define([
 ], function (Ember, Eotu, $) {
 	return Ember.ObjectController.extend({
 		contact: null,
-		messages: null,
 		actions: {
 			select: function (contact) {
 				Eotu.Onlines.forEach(function (item) {
@@ -13,9 +12,11 @@ define([
 				});
 				contact.set("isSelected", true);
 				this.set('contact', contact);
-				this.set('messages', Eotu.Messages);
 			},
 			send: function (contact) {
+				if (!contact) {
+					alert("请选择用户");
+				}
 				Eotu.console.log("给" + contact.fullname + " 发送消息");
 				var found = false;
 				Eotu.Onlines.forEach(function (item) {
