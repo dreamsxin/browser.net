@@ -8,6 +8,6 @@
         SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     
     <DockPanel>
-            <gecko:GeckoWebBrowser x:Name="browser" GeckoInitCompleted="browser_OnInitCompleted" />
+            <gecko:GeckoWebBrowser x:Name="browser" GeckoInitCompleted="browser_OnInitCompleted" DocumentCompleted="browser_DocumentCompleted" />
     </DockPanel>
 </src:BaseWindow>

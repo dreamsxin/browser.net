@@ -79,9 +79,13 @@ namespace Eotu.Client
             browserInitCompleted = true;
         }
 
+        private void browser_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
+        {
+        }
+
         public void InitApp(string json)
         {
-            JSCall("Eotu.SetLocalApp();");
+            JSCall("Eotu.SetLocalApp(1);");
         }
 
         public void CreateWindow(string json)
