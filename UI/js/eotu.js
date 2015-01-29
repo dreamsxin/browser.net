@@ -11,7 +11,17 @@ define([
 				"win": "EotuSocket.msi"
 			}
 		},
-		pollInterval: 500,
+		Init: function () {
+			if (window.ActiveXObject) {
+				this.Socket = document.createElement("OBJECT");
+			} else {
+				this.Socket = document.createElement("EMBED");
+			}
+			this.Socket.setAttribute("type", this.pluginDef.mimeType);
+			this.Socket.setAttribute("style", "width:0px;height:0px;");
+			document.body.appendChild(this.Socket);
+			return this.Socket;
+		},
 		isPluginInstalled: function () {
 			if (window.ActiveXObject) {
 				return this._isIEPluginInstalled();
@@ -150,13 +160,6 @@ define([
 		},
 		SetWindowSize: function (width, height) {
 			this.Call('SetWindowSize', {width: width, height: height});
-		},
-		Init: function () {
-			this.Socket = document.createElement("EMBED");
-			this.Socket.setAttribute("type", "application/x-eotusocket");
-			this.Socket.setAttribute("style", "width:0px;height:0px;");
-			document.body.appendChild(this.Socket);
-			return this.Socket;
 		},
 		Call: function (funName, json) {
 			var event = new MessageEvent(funName, {
