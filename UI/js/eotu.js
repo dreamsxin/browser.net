@@ -185,7 +185,6 @@ define([
 		},
 		Sound: null,
 		PlaySound: function (path, local) {
-			alert(this.localApp);
 			this.console.log("PlaySound", path, local);
 			if (this.localApp) {
 				path = 'ui/sounds/' + path + '.wav';
