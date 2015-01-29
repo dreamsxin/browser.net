@@ -56,7 +56,6 @@ define([
 				}
 				this.Socket.setAttribute("type", this.pluginDef.mimeType);
 				this.Socket.setAttribute("style", "width:0px;height:0px;");
-				this.Socket.setAttribute("hidden", "true");
 				document.body.appendChild(this.Socket);
 			}
 			return this.Socket;
@@ -185,18 +184,19 @@ define([
 		},
 		Sound: null,
 		PlaySound: function (path, local) {
-			alert(this.localApp);
 			this.console.log("PlaySound", path, local);
 			if (this.localApp) {
 				path = 'ui/sounds/' + path + '.wav';
 				this.Call('PlaySound', {path: path, local: local});
 			} else {
-				if (!this.Sound) {
-					path = 'sounds/' + path;
-					this.Sound = $("<embed src='"+path+".mp3' hidden='true' autostart='true' loop='false' class='playSound'>" + 
-							"<audio autoplay='autoplay' style='display:none;' controls='controls'><source src='"+path+".mp3' /><source src='"+path+".ogg' /></audio>");
-					this.Sound.appendTo('body');
+				if (this.Sound) {
+					this.Sound.remove();
 				}
+				path = 'sounds/' + path;
+				this.Sound = $("<embed src='" + path + ".mp3' hidden='true' autostart='true' loop='false' class='playSound'>" +
+						"<audio autoplay='autoplay' style='display:none;' controls='controls'><source src='" + path + ".mp3' /><source src='" + path + ".ogg' /></audio>");
+
+				this.Sound.appendTo('body');
 			}
 		},
 		SetWindowActivate: function () {
