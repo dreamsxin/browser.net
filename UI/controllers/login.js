@@ -9,6 +9,7 @@ define([
 		},
 		actions: {
 			login: function () {
+				Eotu.console.log(Ember.$('input'));
 				if (!this.get('form.username') || !this.get('form.password')) {
 					alert('请输入账户和密码');
 					return;
