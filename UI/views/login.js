@@ -10,6 +10,7 @@ define([
 		templateName: 'loginTemplate',
 		didInsertElement: function () {
 			Eotu.SetWindowSize(300, $(document).outerHeight(true));
+			Eotu.PlaySound('ui/sound/start.wav', true);
 		}
 	});
 });

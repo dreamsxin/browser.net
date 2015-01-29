@@ -4,12 +4,288 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Gecko.Events;
+using Gecko.Net;
 
 namespace Gecko
 {
 	partial class GeckoWebBrowser
 	{
         public event EventHandler<EventArgs> GeckoInitCompleted;
+
+        #region public event EventHandler<GeckoNavigatingEventArgs> Navigating
+
+        /// <summary>
+        /// Occurs before the browser navigates to a new page.
+        /// </summary>
+        [Category("Navigation")]
+        [Description("Occurs before the browser navigates to a new page.")]
+        public event EventHandler<GeckoNavigatingEventArgs> Navigating;
+
+        /// <summary>Raises the <see cref="Navigating"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnNavigating(GeckoNavigatingEventArgs e)
+        {
+            EventHandler<GeckoNavigatingEventArgs> handler = Navigating;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region public event GeckoRequestProgressEventHandler ProgressChanged
+
+        /// <summary>
+        /// Occurs when the control has updated progress information.
+        /// </summary>
+        [Category("Navigation")]
+        [Description("Occurs when the control has updated progress information.")]
+        public event EventHandler<GeckoProgressEventArgs> ProgressChanged;
+
+
+        /// <summary>Raises the <see cref="ProgressChanged"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnProgressChanged(GeckoProgressEventArgs e)
+        {
+            EventHandler<GeckoProgressEventArgs> handler = ProgressChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region public event EventHandler<GeckoNavigatingEventArgs> FrameNavigating
+
+        /// <summary>
+        /// Occurs before the browser navigates to a new frame.
+        /// </summary>
+        [Category("Navigation")]
+        [Description("Occurs before the browser navigates to a new frame.")]
+        public event EventHandler<GeckoNavigatingEventArgs> FrameNavigating;
+
+        /// <summary>Raises the <see cref="FrameNavigating"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnFrameNavigating(GeckoNavigatingEventArgs e)
+        {
+            EventHandler<GeckoNavigatingEventArgs> handler = FrameNavigating;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region public event EventHandler<GeckoRedirectingEventArgs> Redirecting
+
+        /// <summary>
+        /// Occurs before the browser redirects to a new page.
+        /// </summary>
+        [Category("Navigation")]
+        [Description("Occurs before the browser redirects to a new page.")]
+        public event EventHandler<GeckoRedirectingEventArgs> Redirecting;
+
+        /// <summary>Raises the <see cref="Redirecting"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnRedirecting(GeckoRedirectingEventArgs e)
+        {
+            EventHandler<GeckoRedirectingEventArgs> handler = Redirecting;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region public event EventHandler DocumentCompleted<GeckoDocumentCompletedEventArgs>
+
+        /// <summary>
+        /// Occurs after the browser has finished parsing a new page and updated the <see cref="Document"/> property.
+        /// </summary>
+        [Category("Navigation")]
+        [Description("Occurs after the browser has finished parsing a new page and updated the Document property.")]
+        public event EventHandler<GeckoDocumentCompletedEventArgs> DocumentCompleted;
+
+        /// <summary>Raises the <see cref="DocumentCompleted"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnDocumentCompleted(GeckoDocumentCompletedEventArgs e)
+        {
+            EventHandler<GeckoDocumentCompletedEventArgs> handler = DocumentCompleted;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region public event EventHandler<GeckoNavigationErrorEventArgs> NavigationError
+
+        /// <summary>
+        /// Occurs when navigation to a new page has failed or has been aborted by user.
+        /// </summary>
+        [Category("Navigation")]
+        [Description("Occurs when navigation to a new page has failed or has been aborted by user.")]
+        public event EventHandler<GeckoNavigationErrorEventArgs> NavigationError;
+
+        /// <summary>Raises the <see cref="NavigationError"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnNavigationError(GeckoNavigationErrorEventArgs e)
+        {
+            EventHandler<GeckoNavigationErrorEventArgs> handler = NavigationError;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region public event EventHandler<GeckoNSSErrorEventArgs> NSSError
+
+        /// <summary>
+        /// Occurs when the control has updated progress information.
+        /// </summary>
+        [Category("Security")]
+        public event EventHandler<GeckoNSSErrorEventArgs> NSSError;
+
+
+        /// <summary>Raises the <see cref="NSSError"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnNSSError(GeckoNSSErrorEventArgs e)
+        {
+            EventHandler<GeckoNSSErrorEventArgs> handler = NSSError;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region public event EventHandler<GeckoRetargetedEventArgs> Retargeted
+
+        /// <summary>
+        /// Occurs after the navigation is retargeted.
+        /// E.g. the content-type can't be handled by browser or plugins, or the content is supposed to be downloaded.
+        /// </summary>
+        [Category("Navigation")]
+        [Description("Occurs after the navigation is retargeted.")]
+        public event EventHandler<GeckoRetargetedEventArgs> Retargeted;
+
+        /// <summary>Raises the <see cref="Retargeted"/> event.</summary>
+        /// <param name="e">The data for the event.</param>
+        protected virtual void OnRetargeted(GeckoRetargetedEventArgs e)
+        {
+            EventHandler<GeckoRetargetedEventArgs> handler = Retargeted;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion
+
+        #region GeckoProgressEventArgs
+        /// <summary>Provides data for  event.</summary>
+        public class GeckoProgressEventArgs
+            : EventArgs
+        {
+            public readonly long CurrentProgress;
+            public readonly long MaximumProgress;
+            /// <summary>Creates a new instance of a <see cref="GeckoProgressEventArgs"/> object.</summary>
+            public GeckoProgressEventArgs(long current, long max)
+            {
+                CurrentProgress = current;
+                MaximumProgress = max;
+            }
+        }
+        #endregion
+
+        #region GeckoNavigatedEventArgs
+        /// <summary>Provides data for event.</summary>
+        public class GeckoNavigatedEventArgs
+            : EventArgs
+        {
+            // Wrapper is not often needed, so store only nsIRequest
+            private nsIRequest _response;
+            private GeckoResponse _wrapper;
+
+            public readonly GeckoWindow DomWindow;
+            public readonly Boolean DomWindowTopLevel;
+
+            public readonly Uri Uri;
+
+            public readonly Boolean IsSameDocument;
+            public readonly Boolean IsErrorPage;
+
+            /// <summary>Creates a new instance of a <see cref="GeckoNavigatedEventArgs"/> object.</summary>
+            /// <param name="value"></param>
+            /// <param name="response"></param>
+            internal GeckoNavigatedEventArgs(Uri value, nsIRequest response, GeckoWindow domWind, bool _sameDocument, bool _errorPage)
+            {
+                Uri = value;
+                _response = response;
+                DomWindow = domWind;
+                DomWindowTopLevel = ((domWind == null) ? true : DomWindow.DomWindow.Equals(DomWindow.Top.DomWindow));
+
+                IsSameDocument = _sameDocument;
+                IsErrorPage = _errorPage;
+            }
+
+            public GeckoResponse Response
+            {
+                get { return _wrapper ?? (_wrapper = new GeckoResponse(_response)); }
+            }
+        }
+        #endregion
+
+        #region GeckoRedirectingEventArgs
+        /// <summary>Provides data for event.</summary>
+        public class GeckoRedirectingEventArgs
+            : CancelEventArgs
+        {
+            public readonly Uri Uri;
+            public readonly GeckoWindow DomWindow;
+            public readonly Boolean DomWindowTopLevel;
+
+            /// <summary>Creates a new instance of a <see cref="GeckoRedirectingEventArgs"/> object.</summary>
+            /// <param name="value"></param>
+            public GeckoRedirectingEventArgs(Uri value, GeckoWindow domWind)
+            {
+                Uri = value;
+                DomWindow = domWind;
+                DomWindowTopLevel = ((domWind == null) ? true : DomWindow.DomWindow.Equals(DomWindow.Top.DomWindow));
+            }
+        }
+        #endregion
+
+        #region GeckoRetargetedEventArgs
+        /// <summary>Provides data for event.</summary>
+        public class GeckoRetargetedEventArgs
+            : EventArgs
+        {
+            public readonly Uri Uri;
+            public readonly GeckoWindow DomWindow;
+            public readonly bool DomWindowTopLevel;
+            public readonly Request Request;
+
+            /// <summary>Creates a new instance of a <see cref="GeckoRetargetedEventArgs"/> object.</summary>
+            /// <param name="uri"></param>
+            public GeckoRetargetedEventArgs(Uri uri, GeckoWindow domWind, Request req)
+            {
+                Uri = uri;
+                DomWindow = domWind;
+                DomWindowTopLevel = domWind.IsTopWindow();
+                Request = req;
+            }
+        }
+        #endregion
 
         #region Event Keys
         // Dom

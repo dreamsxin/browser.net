@@ -1,6 +1,20 @@
 define([
-	'ember'
-], function (Ember) {
+	'ember',
+	'ion'
+], function (Ember, ion) {
+	ion.sound({
+		sounds: [
+			{
+				name: "message",
+				volume: 0.3,
+				preload: false
+			}
+		],
+		volume: 0.5,
+		path: "sound/",
+		preload: true
+	});
+
 	var Eotu = Ember.Object.extend({
 		platform: {
 			win: function () {
@@ -47,15 +61,22 @@ define([
 			}
 		},
 		Init: function () {
-			if (window.ActiveXObject) {
-				this.Socket = document.createElement("OBJECT");
-			} else {
-				this.Socket = document.createElement("EMBED");
+			this.Call('InitApp');
+			if (!this.Socket) {
+				if (window.ActiveXObject) {
+					this.Socket = document.createElement("OBJECT");
+				} else {
+					this.Socket = document.createElement("EMBED");
+				}
+				this.Socket.setAttribute("type", this.pluginDef.mimeType);
+				this.Socket.setAttribute("style", "width:0px;height:0px;");
+				document.body.appendChild(this.Socket);
 			}
-			this.Socket.setAttribute("type", this.pluginDef.mimeType);
-			this.Socket.setAttribute("style", "width:0px;height:0px;");
-			document.body.appendChild(this.Socket);
 			return this.Socket;
+		},
+		localApp: false,
+		SetLocalApp: function () {
+			this.localApp = true;
 		},
 		isPluginInstalled: function () {
 			if (window.ActiveXObject) {
@@ -176,7 +197,11 @@ define([
 			this.Call('ShowMessage', {title: title, message: message});
 		},
 		PlaySound: function (path, local) {
-			this.Call('PlaySound', {path: path, local: local});
+			if (this.localApp) {
+				this.Call('PlaySound', {path: path, local: local});
+			} else {
+				ion.sound.play("message");
+			}
 		},
 		SetWindowActivate: function () {
 			this.Call('SetWindowActivate', {topmost: false});
@@ -201,6 +226,12 @@ define([
 				'data': JSON.stringify(json)
 			});
 			document.dispatchEvent(event);
+		},
+		addListener: function (name, fun) {
+			document.addEventListener ? document.addEventListener(name, fun, false) : document.attachEvent("on" + name, fun);
+		},
+		removeListener: function (name, fun) {
+			document.removeEventListener ? document.removeEventListener(name, fun, false) : document.detachEvent("on" + name, fun);
 		},
 		Success: function (json) {
 			alert(json);

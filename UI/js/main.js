@@ -12,6 +12,7 @@ require.config({
 		views: '../views',
 		templates: '../templates',
 		jquery: 'jquery-2.1.3',
+		ion: 'ion.sound.min',
 		handlebars: 'handlebars-v2.0.0',
 		ember: 'ember'
 	},
@@ -23,6 +24,10 @@ require.config({
 		bootstrap: {
 			deps: ["jquery"],
 			exports: "$.fn.popover"
+		},
+		ion: {
+			deps: ["jquery"],
+			exports: "ion"
 		}
 	}
 });
@@ -34,7 +39,8 @@ define(['handlebars'], function (Handlebars) {
 		'app',
 		'eotu'
 	], function (App, Eotu) {
-		eotuApp = App.create();
+		window.Eotu = Eotu;
+		window.eotuApp = App.create();
 		eotuApp.Router.map(function () {
 			this.route("login", {path: "/"});
 			this.route("register");
@@ -45,13 +51,12 @@ define(['handlebars'], function (Handlebars) {
 		});
 
 		$(document).ready(function () {
-			Eotu.SetWindowTitle('登录');
-			Eotu.PlaySound('ui/sound/start.wav', true);
 			//Eotu.SetWindowStyle(Eotu.WindowStyle.None);
 			//Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
 
 			if (Eotu.isPluginInstalled()) {
 				Eotu.Init();
+				Eotu.SetWindowTitle('登录');
 				if (Eotu.Socket.valid) {
 					Eotu.console.log('EotuSock 插件加载成功');
 				}

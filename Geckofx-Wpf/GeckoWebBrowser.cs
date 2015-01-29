@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using Gecko.Interop;
 using Gecko.IO;
+using Gecko.Events;
 
 namespace Gecko
 {
@@ -53,6 +54,7 @@ namespace Gecko
 			#region nsIWebProgressListener/nsIWebProgressListener2
 			Guid nsIWebProgressListenerGUID = typeof(nsIWebProgressListener).GUID;
 			Guid nsIWebProgressListener2GUID = typeof(nsIWebProgressListener2).GUID;
+            _webProgressListener.OnStateChangeCallback = OnStateChange;
 			_webProgressWeakReference = _webProgressListener.GetWeakReference();
 			_webBrowser.Instance.AddWebBrowserListener(_webProgressWeakReference, ref nsIWebProgressListenerGUID);
 			_webBrowser.Instance.AddWebBrowserListener(_webProgressWeakReference, ref nsIWebProgressListener2GUID);
@@ -120,6 +122,157 @@ namespace Gecko
 			_webBrowser.Dispose();
 			_webBrowser = null;
 			_source.Dispose();
+		}
+
+       private void OnStateChange(nsIWebProgress aWebProgress, nsIRequest aRequest, uint aStateFlags, int aStatus) {
+			const int NS_BINDING_ABORTED = unchecked((int)0x804B0002);
+			
+			#region validity checks
+			// The request parametere may be null
+			if (aRequest == null)
+				return;
+
+			// Ignore ViewSource requests, they don't provide the URL
+			// see: http://mxr.mozilla.org/mozilla-central/source/netwerk/protocol/viewsource/nsViewSourceChannel.cpp#114
+			{
+				var viewSource = Xpcom.QueryInterface<nsIViewSourceChannel>( aRequest );
+				if ( viewSource != null )
+				{
+					Marshal.ReleaseComObject( viewSource );
+					return;
+				}
+			}
+	
+			#endregion validity checks
+
+			var request=Gecko.Net.Request.CreateRequest( aRequest );
+			
+			#region request parameters
+			Uri destUri = null;
+			Uri.TryCreate( request.Name, UriKind.Absolute, out destUri );
+			var domWindow = aWebProgress.GetDOMWindowAttribute().Wrap( x => new GeckoWindow( x ) );
+			bool stateIsRequest = ((aStateFlags & nsIWebProgressListenerConstants.STATE_IS_REQUEST) != 0);
+			bool stateIsDocument = ((aStateFlags & nsIWebProgressListenerConstants.STATE_IS_DOCUMENT) != 0);
+			bool stateIsNetwork = ((aStateFlags & nsIWebProgressListenerConstants.STATE_IS_NETWORK) != 0);
+			bool stateIsWindow = ((aStateFlags & nsIWebProgressListenerConstants.STATE_IS_WINDOW) != 0);
+			#endregion request parameters
+
+			#region STATE_START
+			/* This flag indicates the start of a request.
+			 * This flag is set when a request is initiated.
+			 * The request is complete when onStateChange() is called for the same request with the STATE_STOP flag set.
+			 */
+			if ((aStateFlags & nsIWebProgressListenerConstants.STATE_START) != 0)
+			{
+
+				// TODO: replace to aWebProgress.GetIsTopLevelAttribute() // Gecko 24+
+				if (stateIsNetwork && domWindow.IsTopWindow())
+				{
+					GeckoNavigatingEventArgs ea = new GeckoNavigatingEventArgs(destUri, domWindow);
+					OnNavigating(ea);
+
+					if (ea.Cancel)
+					{
+						aRequest.Cancel(NS_BINDING_ABORTED);
+						OnProgressChanged(new GeckoProgressEventArgs(100, 100));
+					}
+				}
+				else if (stateIsDocument)
+				{
+					GeckoNavigatingEventArgs ea = new GeckoNavigatingEventArgs(destUri, domWindow);
+					OnFrameNavigating(ea);
+
+					if (ea.Cancel)
+					{
+						// TODO: test it on Linux
+						if (!Xpcom.IsLinux)
+							aRequest.Cancel(NS_BINDING_ABORTED);
+					}
+				}
+			}
+			#endregion STATE_START
+
+			#region STATE_REDIRECTING
+			/* This flag indicates that a request is being redirected.
+			 * The request passed to onStateChange() is the request that is being redirected.
+			 * When a redirect occurs, a new request is generated automatically to process the new request.
+			 * Expect a corresponding STATE_START event for the new request, and a STATE_STOP for the redirected request.
+			 */
+			else if ((aStateFlags & nsIWebProgressListenerConstants.STATE_REDIRECTING) != 0)
+			{
+
+				// make sure we're loading the top-level window
+				GeckoRedirectingEventArgs ea = new GeckoRedirectingEventArgs(destUri, domWindow);
+				OnRedirecting(ea);
+
+				if (ea.Cancel)
+				{
+					aRequest.Cancel(NS_BINDING_ABORTED);
+				}
+			}
+			#endregion STATE_REDIRECTING
+
+			#region STATE_TRANSFERRING
+			/* This flag indicates that data for a request is being transferred to an end consumer.
+			 * This flag indicates that the request has been targeted, and that the user may start seeing content corresponding to the request.
+			 */
+			else if ((aStateFlags & nsIWebProgressListenerConstants.STATE_TRANSFERRING) != 0)
+			{
+			}
+			#endregion STATE_TRANSFERRING
+
+			#region STATE_STOP
+			/* This flag indicates the completion of a request.
+			 * The aStatus parameter to onStateChange() indicates the final status of the request.
+			 */
+			else if ((aStateFlags & nsIWebProgressListenerConstants.STATE_STOP) != 0)
+			{
+				if (stateIsNetwork)
+				{
+					if (aStatus == 0)
+					{
+						// navigating to a unrenderable file (.zip, .exe, etc.) causes the request pending;
+						// also an OnStateChange call with aStatus:804B0004(NS_BINDING_RETARGETED) has been generated previously.
+						if (!request.IsPending)
+						{
+							// kill any cached document and raise DocumentCompleted event
+							OnDocumentCompleted(new GeckoDocumentCompletedEventArgs(destUri, domWindow));
+
+							// clear progress bar
+							OnProgressChanged(new GeckoProgressEventArgs(100, 100));
+						}
+					}
+					else
+					{
+						OnNavigationError(new GeckoNavigationErrorEventArgs(request.Name, domWindow, aStatus));
+					}
+				}
+
+				if (stateIsRequest)
+				{
+					if ((aStatus & 0xff0000) == ((GeckoError.NS_ERROR_MODULE_SECURITY + GeckoError.NS_ERROR_MODULE_BASE_OFFSET) << 16))
+					{
+						var ea = new GeckoNSSErrorEventArgs(destUri, aStatus);
+						OnNSSError(ea);
+						if (ea.Handled)
+						{
+							aRequest.Cancel(GeckoError.NS_BINDING_ABORTED);
+						}
+					}
+
+					if (aStatus == GeckoError.NS_BINDING_RETARGETED)
+					{
+						GeckoRetargetedEventArgs ea = new GeckoRetargetedEventArgs(destUri, domWindow, request);
+						OnRetargeted(ea);
+					}
+				}
+			}
+			#endregion STATE_STOP
+
+			if (domWindow!=null)
+			{
+				domWindow.Dispose();
+			}
 		}
 
 		#region IGeckoWebBrowser
@@ -291,10 +444,6 @@ namespace Gecko
 			}
 			return ok;
 		}
-
-		public event EventHandler<Events.GeckoDocumentCompletedEventArgs> DocumentCompleted;
-
-		public event EventHandler<Events.GeckoNavigationErrorEventArgs> NavigationError;
 
 		/// <summary>
 		/// UI platform independent call function from UI thread

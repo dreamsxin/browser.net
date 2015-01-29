@@ -57,6 +57,7 @@ namespace Eotu.Client
         {
             if (!browserInitCompleted)
             {
+                browser.AddMessageEventListener("InitApp", ((string json) => InitApp(json)));
                 browser.AddMessageEventListener("CreateWindow", ((string json) => CreateWindow(json)));
                 browser.AddMessageEventListener("SendWindowMessage", ((string json) => SendWindowMessage(json)));
                 browser.AddMessageEventListener("RecvWindowMessage", ((string json) => RecvWindowMessage(json)));
@@ -76,6 +77,11 @@ namespace Eotu.Client
                 browser.WebBrowserFocus.Activate();
             }
             browserInitCompleted = true;
+        }
+
+        public void InitApp(string json)
+        {
+            JSCall("Eotu.SetLocalApp();");
         }
 
         public void CreateWindow(string json)
