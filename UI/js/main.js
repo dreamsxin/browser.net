@@ -55,6 +55,8 @@ define(['handlebars'], function (Handlebars) {
 				if (Eotu.Socket.valid) {
 					Eotu.console.log('EotuSock 插件加载成功');
 				}
+			} else {
+				alert('请先下载安装插件，然后重启浏览器，下载地址：' + Eotu.GetInstallURL());
 			}
 			//Eotu.CreateWindow('ui/chat.html', true);
 		});

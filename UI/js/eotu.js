@@ -2,13 +2,48 @@ define([
 	'ember'
 ], function (Ember) {
 	var Eotu = Ember.Object.extend({
+		platform: {
+			win: function () {
+				u = navigator.userAgent.toLowerCase();
+				p = navigator.platform.toLowerCase();
+				return p ? /win/.test(p) : /win/.test(u);
+			},
+			mac: function () {
+				u = navigator.userAgent.toLowerCase();
+				p = navigator.platform.toLowerCase();
+				return p ? /mac/.test(p) : /mac/.test(u);
+			}
+		},
+		browser: {
+			msie: function () {
+				alert(navigator.userAgent.toLowerCase());
+				return /msie/.test(navigator.userAgent.toLowerCase());
+			},
+			mozilla: function () {
+				return /firefox/.test(navigator.userAgent.toLowerCase());
+			},
+			webkit: function () {
+				return /webkit/.test(navigator.userAgent.toLowerCase());
+			},
+			opera: function () {
+				return /opera/.test(navigator.userAgent.toLowerCase());
+			}
+		},
 		pluginDef: {
-			"name": "EotuSocket",
-			"mimeType": "application/x-eotusocket",
-			"activeXName": "GuoSheng.EotuSocket",
-			"guid": "d0da49f0-f6a1-5c4a-8494-6a5f9c79980d",
-			"installURL": {
-				"win": "EotuSocket.msi"
+			name: "EotuSocket",
+			mimeType: "application/x-eotusocket",
+			activeXName: "GuoSheng.EotuSocket",
+			guid: "d0da49f0-f6a1-5c4a-8494-6a5f9c79980d",
+			installURL: {
+				win: "EotuSocket.msi",
+				linux: "EotuSocket.sh"
+			}
+		},
+		GetInstallURL: function () {
+			if (this.platform.win()) {
+				return this.pluginDef.installURL.win;
+			} else {
+				return this.pluginDef.installURL.linux;
 			}
 		},
 		Init: function () {
@@ -50,13 +85,10 @@ define([
 			return version;
 		},
 		_isNpapiPluginInstalled: function () {
-			var mimeType = this.pluginDef.mimeType;
-			var name = this.pluginDef.name;
-
-			if (typeof (navigator.plugins[name]) != "undefined") {
+			if (typeof (navigator.plugins[this.pluginDef.name]) != "undefined") {
 				var re = /([0-9.]+)\.dll/;
 
-				var filename = navigator.plugins[name].filename;
+				var filename = navigator.plugins[this.pluginDef.name].filename;
 				var fnd = re.exec(filename);
 				if (fnd === null) {
 					return true;
