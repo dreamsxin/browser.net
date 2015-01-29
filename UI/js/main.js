@@ -50,9 +50,11 @@ define(['handlebars'], function (Handlebars) {
 			//Eotu.SetWindowStyle(Eotu.WindowStyle.None);
 			//Eotu.AjaxGet("http://dev.eotu.com:81/api/front/index/hotelTypes");
 
-			Eotu.Init();
-			if (Eotu.Socket.valid) {
-				Eotu.console.log('EotuSock 插件加载成功');
+			if (Eotu.isPluginInstalled()) {
+				Eotu.Init();
+				if (Eotu.Socket.valid) {
+					Eotu.console.log('EotuSock 插件加载成功');
+				}
 			}
 			//Eotu.CreateWindow('ui/chat.html', true);
 		});
