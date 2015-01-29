@@ -54,6 +54,7 @@ define([
 								$('#message_list').scrollTop($('#message_list')[0].scrollHeight + 60);
 							}
 						}), 100);
+						Eotu.PlaySound('message', true);
 					},
 					message: function (type, data) {
 						alert('消息' + type + data);
@@ -73,9 +74,12 @@ define([
 								var item = Ember.Object.extend(items[i]).create();
 								Eotu.Onlines.pushObject(item);
 								if (!items[i]["online"]) {
+									Eotu.PlaySound('offline', true);
 									Ember.run.later((function () {
 										Eotu.Onlines.removeObject(item);
 									}), 1000);
+								} else {
+									Eotu.PlaySound('online', true);
 								}
 							}
 							Eotu.console.log(Eotu.Onlines);

@@ -17,7 +17,7 @@ define([
 				_this.get('controller').transitionToRoute('login');
 				return;
 			}
-			Eotu.PlaySound('ui/sound/login.wav', true);
+			Eotu.PlaySound('login', true);
 			Eotu.SetWindowSize(1140, $(document).outerHeight(true));
 			_this.set('contacts',Eotu.Onlines);
 			_this.set('messages', Eotu.Messages);
